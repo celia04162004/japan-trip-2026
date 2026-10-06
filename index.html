@@ -1,0 +1,2091 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 允許外鏈圖片跨域免防盜鏈載入 -->
+  <meta name="referrer" content="no-referrer" />
+  <title>2026 名古屋・飛驒・京都 9日探索手冊</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome 圖標庫 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700;800&family=Inter:wght@300;400;600;700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+            anime: ['Chakra Petch', 'Zen Maru Gothic', 'sans-serif'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
+          },
+          colors: {
+            brand: {
+              cyan: '#00f2fe',
+              gold: '#ffb300',
+              amber: '#ff6200',
+              purple: '#b347ff',
+              rose: '#ff2a85',
+              mapleRed: '#d92534',
+              emerald: '#00e699'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* 楓葉全景背景層 (放置於最底層 z-index: -10，支援多圖源Fallback) */
+    .maple-bg-layer {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -10;
+      pointer-events: none;
+      background-image: 
+        url('https://i.pinimg.com/474x/45/d6/2b/45d62b443d35270484d0561a8607ec07.jpg'),
+        url('https://images.unsplash.com/photo-1508873696983-2df5293cb32f?auto=format&fit=crop&w=2000&q=80');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      transform: scale(1.02);
+      transition: filter 0.4s ease;
+    }
+
+    /* 深色模式：楓葉背景微調為深邃赤金夜楓色調 */
+    .dark .maple-bg-layer {
+      filter: brightness(0.65) saturate(1.3) contrast(1.12);
+    }
+
+    /* 淺色模式：楓葉背景微調為溫暖日照金秋色調 */
+    html:not(.dark) .maple-bg-layer {
+      filter: brightness(1.02) saturate(1.15) contrast(1.02);
+    }
+
+    /* 深淺模式護眼保護層 (z-index: -5，透出楓葉且不遮蔽文字) */
+    .dark .maple-bg-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -5;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(14, 10, 20, 0.78) 0%, rgba(32, 10, 16, 0.62) 50%, rgba(10, 8, 15, 0.82) 100%);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+
+    html:not(.dark) .maple-bg-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -5;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(255, 252, 247, 0.72) 0%, rgba(255, 244, 230, 0.58) 50%, rgba(254, 246, 238, 0.75) 100%);
+      backdrop-filter: blur(1.5px);
+      -webkit-backdrop-filter: blur(1.5px);
+    }
+
+    /* 玻璃卡片質感 (保證文字 100% 清晰可讀) */
+    .glass-card {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.25s ease;
+    }
+    
+    .dark .glass-card {
+      background: rgba(20, 16, 28, 0.90);
+      border: 1px solid rgba(255, 179, 0, 0.28);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.65);
+    }
+    .dark .glass-card:hover {
+      border-color: rgba(255, 179, 0, 0.6);
+    }
+
+    /* 淺色模式高對比設計：白底微透＋橘紅金邊框＋深黑文字 */
+    html:not(.dark) .glass-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1.5px solid rgba(220, 38, 38, 0.4);
+      box-shadow: 0 10px 25px -4px rgba(185, 28, 28, 0.14), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    html:not(.dark) .glass-card:hover {
+      border-color: rgba(220, 38, 38, 0.75);
+      box-shadow: 0 14px 30px -4px rgba(185, 28, 28, 0.22);
+    }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* 鳴潮與動漫貼圖浮動效果 */
+    .echo-sticker {
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .echo-sticker:hover {
+      transform: translateY(-4px) scale(1.1) rotate(4deg);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans transition-colors duration-300 relative dark:text-slate-100 text-stone-900 selection:bg-red-600 selection:text-white">
+
+  <!-- 真正的楓葉全景背景與深淺雙遮罩 -->
+  <div class="maple-bg-layer" aria-hidden="true"></div>
+  <div class="maple-bg-overlay" aria-hidden="true"></div>
+
+  <!-- 頂部導航欄 (全螢幕流體 RWD) -->
+  <header class="border-b dark:border-amber-500/20 border-red-200 dark:bg-black/60 bg-white/90 backdrop-blur-md px-3 sm:px-6 py-3.5 sticky top-0 z-50 transition-colors shadow-md">
+    <div class="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3.5">
+      <div class="text-center md:text-left w-full md:w-auto">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-600/15 border border-red-500/40 dark:text-amber-400 text-red-700 text-[11px] font-anime font-extrabold mb-1">
+          <i class="fa-solid fa-leaf text-red-600 animate-pulse"></i>
+          2026 AUTUMN TOUR // 飛驒紅葉・金秋漫遊
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-center md:justify-start gap-2">
+          <h1 class="text-xl sm:text-2xl font-black dark:text-white text-stone-950 tracking-tight flex items-center justify-center md:justify-start gap-2">
+            <span class="bg-gradient-to-r from-red-600 via-amber-500 to-amber-600 bg-clip-text text-transparent font-anime">日本秋遊漫步手冊</span>
+          </h1>
+          <!-- 帶有 Tag 圖示的副標籤 -->
+          <div class="inline-flex items-center justify-center gap-1.5 px-2.5 py-0.5 rounded-lg dark:bg-amber-500/15 bg-amber-100/90 border dark:border-amber-500/30 border-amber-300 text-xs font-bold dark:text-amber-300 text-amber-900 w-fit mx-auto sm:mx-0 shadow-sm">
+            <i class="fa-solid fa-tags text-[11px] text-amber-600 dark:text-amber-400"></i>
+            <span>名古屋</span>
+            <span class="opacity-40">•</span>
+            <span>京都</span>
+            <span class="opacity-40">•</span>
+            <span>合掌村</span>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 text-[11px] sm:text-xs dark:text-gray-300 text-stone-700 mt-1.5 font-medium">
+          <span class="px-2 py-0.5 rounded-md dark:bg-black/40 bg-white/80 border dark:border-stone-800 border-amber-200">
+            <i class="fa-regular fa-calendar-check text-amber-500"></i> 10/23(五) - 10/31(六)
+          </span>
+          <span class="px-2 py-0.5 rounded-md dark:bg-black/40 bg-white/80 border dark:border-stone-800 border-amber-200">
+            <i class="fa-solid fa-users text-red-500"></i> 8人同行
+          </span>
+          <span class="px-2 py-0.5 rounded-md dark:bg-black/40 bg-white/80 border dark:border-stone-800 border-amber-200">
+            <i class="fa-solid fa-van-shuttle text-emerald-600"></i> 4日包車＋自主分流
+          </span>
+        </div>
+      </div>
+
+      <!-- 四字導航切換按鈕組 (單行不折行) -->
+      <div class="flex items-center flex-wrap justify-center gap-2 w-full md:w-auto">
+        <nav class="flex items-center dark:bg-black/60 bg-amber-100/80 p-1.5 rounded-2xl border dark:border-stone-800 border-amber-300/80 shadow-inner w-full sm:w-auto justify-center overflow-x-auto no-scrollbar">
+          <button id="nav-btn-overview" onclick="goToPage('overview')" class="flex-1 sm:flex-initial px-2.5 sm:px-4 py-1.5 rounded-xl text-[11px] sm:text-sm font-black flex items-center justify-center gap-1 transition-all bg-gradient-to-r from-red-600 via-orange-500 to-amber-500 text-white shadow-md cursor-pointer whitespace-nowrap">
+            <i class="fa-solid fa-map-location-dot"></i> 行程總覽
+          </button>
+          <button id="nav-btn-prep" onclick="goToPage('prep')" class="flex-1 sm:flex-initial px-2.5 sm:px-4 py-1.5 rounded-xl text-[11px] sm:text-sm font-bold flex items-center justify-center gap-1 transition-all dark:text-gray-300 text-stone-700 hover:text-red-600 dark:hover:text-white cursor-pointer whitespace-nowrap">
+            <i class="fa-solid fa-clipboard-check text-red-600"></i> 行前須知
+          </button>
+          <button id="nav-btn-daily" onclick="goToPage('daily')" class="flex-1 sm:flex-initial px-2.5 sm:px-4 py-1.5 rounded-xl text-[11px] sm:text-sm font-bold flex items-center justify-center gap-1 transition-all dark:text-gray-300 text-stone-700 hover:text-red-600 dark:hover:text-white cursor-pointer whitespace-nowrap">
+            <i class="fa-solid fa-calendar-day text-purple-600"></i> 每日行程
+          </button>
+        </nav>
+
+        <!-- 深淺色切換鈕 -->
+        <button id="theme-toggle-btn" onclick="toggleTheme()" class="px-3.5 py-2 rounded-2xl border text-xs font-bold flex items-center gap-1.5 transition-all dark:bg-stone-900/80 dark:border-stone-700 dark:text-amber-400 bg-white border-amber-300 text-stone-800 hover:border-red-500 shadow-sm cursor-pointer whitespace-nowrap" title="切換外觀配色">
+          <i class="fa-solid fa-sun text-amber-500" id="theme-icon"></i>
+          <span id="theme-text">淺色</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主內容容器 -->
+  <main class="w-full max-w-6xl mx-auto px-3 sm:px-6 py-6 flex-1">
+
+    <!-- ==================== 行程總覽 ==================== -->
+    <section id="section-overview" class="space-y-6">
+      
+      <!-- 四大核心預算與步數指標卡 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <div class="glass-card rounded-2xl p-4 sm:p-5 border-t-4 border-t-red-600">
+          <div class="text-xs dark:text-gray-400 text-stone-600 font-anime font-extrabold flex items-center justify-between">
+            <span>個人預估總花費</span>
+            <span class="w-7 h-7 rounded-lg bg-red-600/15 text-red-600 flex items-center justify-center text-xs font-mono font-black">¥</span>
+          </div>
+          <div class="text-xl sm:text-2xl font-black dark:text-amber-400 text-red-700 font-mono mt-2">
+            ¥122,500 ~ 148,000
+          </div>
+          <div class="text-xs font-bold dark:text-gray-300 text-stone-700 mt-1">約 NT$ 26,000 ~ 31,500 / 人</div>
+          <div class="text-[11px] dark:text-gray-400 text-stone-500 mt-2.5 border-t dark:border-stone-800 border-amber-200 pt-2 flex items-center gap-1.5">
+            <i class="fa-solid fa-sparkles text-amber-500"></i> 含4天包車、門票、新幹線與餐食
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-4 sm:p-5 border-t-4 border-t-amber-500">
+          <div class="text-xs dark:text-gray-400 text-stone-600 font-anime font-extrabold flex items-center justify-between">
+            <span>交通與門票公費佔比</span>
+            <span class="w-7 h-7 rounded-lg bg-amber-500/15 text-amber-600 flex items-center justify-center text-xs"><i class="fa-solid fa-ticket"></i></span>
+          </div>
+          <div class="text-xl sm:text-2xl font-black dark:text-amber-300 text-amber-800 font-mono mt-2">
+            ¥68,500
+          </div>
+          <div class="text-xs font-bold dark:text-gray-300 text-stone-700 mt-1">含包車均攤、吉卜力Premium、新幹線</div>
+          <div class="text-[11px] dark:text-gray-400 text-stone-500 mt-2.5 border-t dark:border-stone-800 border-amber-200 pt-2 flex items-center gap-1.5">
+            <i class="fa-solid fa-circle-check text-emerald-600"></i> 出發前多數已預約完成
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-4 sm:p-5 border-t-4 border-t-purple-600">
+          <div class="text-xs dark:text-gray-400 text-stone-600 font-anime font-extrabold flex items-center justify-between">
+            <span>🗺️ 全圖狂奔小隊 平均步數</span>
+            <span class="w-7 h-7 rounded-lg bg-purple-500/15 text-purple-600 flex items-center justify-center text-xs"><i class="fa-solid fa-map-location-dot"></i></span>
+          </div>
+          <div class="text-xl sm:text-2xl font-black dark:text-purple-300 text-purple-800 font-mono mt-2">
+            ~ 17,200 <span class="text-xs font-normal dark:text-gray-400 text-stone-500 font-sans">步/日</span>
+          </div>
+          <div class="text-xs font-bold dark:text-gray-300 text-stone-700 mt-1">最高峰：Day 3 比叡山與京都 (2.2萬步)</div>
+          <div class="text-[11px] dark:text-gray-400 text-stone-500 mt-2.5 border-t dark:border-stone-800 border-amber-200 pt-2 flex items-center gap-1.5">
+            <i class="fa-solid fa-person-running text-purple-600"></i> 犬山城天守登頂、吉卜力全制霸
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-4 sm:p-5 border-t-4 border-t-emerald-600">
+          <div class="text-xs dark:text-gray-400 text-stone-600 font-anime font-extrabold flex items-center justify-between">
+            <span>🧋 原地掛機小隊 平均步數</span>
+            <span class="w-7 h-7 rounded-lg bg-emerald-500/15 text-emerald-600 flex items-center justify-center text-xs"><i class="fa-solid fa-mug-hot"></i></span>
+          </div>
+          <div class="text-xl sm:text-2xl font-black dark:text-emerald-400 text-emerald-800 font-mono mt-2">
+            ≤ 8,800 <span class="text-xs font-normal dark:text-gray-400 text-stone-500 font-sans">步/日</span>
+          </div>
+          <div class="text-xs font-bold dark:text-gray-300 text-stone-700 mt-1">膝蓋友善，平地近景與古民家喫茶</div>
+          <div class="text-[11px] dark:text-gray-400 text-stone-500 mt-2.5 border-t dark:border-stone-800 border-amber-200 pt-2 flex items-center gap-1.5">
+            <i class="fa-solid fa-heart text-red-500"></i> 善用計程車代步、不爬陡梯
+          </div>
+        </div>
+      </div>
+
+      <!-- 9日總日程速報 -->
+      <div class="glass-card rounded-2xl p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b dark:border-stone-800 border-amber-200">
+          <div>
+            <h2 class="text-base sm:text-xl font-black dark:text-white text-stone-950 flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-red-600 shadow-md animate-pulse"></span>
+              9天秋日節奏與預算速報
+            </h2>
+            <p class="text-xs dark:text-gray-400 text-stone-600 mt-1">
+              手機端以直式卡片清晰呈現；點擊任一日「查看詳細」即可切換至當天完整動線與景點介紹。
+            </p>
+          </div>
+          <span class="text-xs font-anime px-3 py-1 rounded-full dark:bg-black/60 bg-amber-100 border dark:border-amber-500/40 border-amber-400 dark:text-amber-300 text-amber-900 font-extrabold w-max">
+            <i class="fa-solid fa-yen-sign"></i> 日圓計價 (JPY)
+          </span>
+        </div>
+
+        <!-- 手機端：直式動漫卡片清單 (block md:hidden) -->
+        <div class="block md:hidden space-y-3.5" id="mobile-overview-list">
+          <!-- JS 動態渲染手機端超高對比卡片 -->
+        </div>
+
+        <!-- 電腦平板端：寬幅表格 (hidden md:block) -->
+        <div class="hidden md:block overflow-x-auto no-scrollbar">
+          <table class="w-full text-left text-xs lg:text-sm">
+            <thead>
+              <tr class="dark:text-gray-300 text-stone-800 font-anime border-b dark:border-stone-800 border-amber-200 dark:bg-black/40 bg-amber-100/70 font-black">
+                <th class="py-3 px-3 whitespace-nowrap">天數/日期</th>
+                <th class="py-3 px-3 whitespace-nowrap">核心主題</th>
+                <th class="py-3 px-3 whitespace-nowrap min-w-[160px]">🤝 全員共同行程</th>
+                <th class="py-3 px-3 whitespace-nowrap min-w-[170px]">🗺️ 全圖狂奔小隊</th>
+                <th class="py-3 px-3 whitespace-nowrap min-w-[170px]">🧋 原地掛機小隊</th>
+                <th class="py-3 px-3 text-right whitespace-nowrap">當日預估</th>
+                <th class="py-3 px-3 text-center whitespace-nowrap">操作</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y dark:divide-stone-800 divide-amber-200/80 dark:text-gray-200 text-stone-800" id="desktop-overview-tbody">
+              <!-- JS 動態渲染桌面端總覽表格 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== 行前須知 ==================== -->
+    <section id="section-prep" class="hidden space-y-6">
+      
+      <!-- 重要旅遊叮嚀與包車守則 -->
+      <div class="glass-card rounded-2xl p-5 sm:p-6 border-l-4 border-l-amber-500">
+        <h2 class="text-lg md:text-xl font-black dark:text-white text-stone-950 flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-amber-500"></i> 重要旅遊叮嚀與乘車公約
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 text-xs md:text-sm leading-relaxed dark:text-gray-300 text-stone-700">
+          <div class="p-4 rounded-xl dark:bg-black/50 bg-amber-50/80 border dark:border-stone-800 border-amber-200 space-y-2">
+            <div class="font-black dark:text-amber-400 text-red-700 flex items-center gap-2">
+              <i class="fa-solid fa-van-shuttle"></i> 包車車廂守則（嚴格執行）
+            </div>
+            <p>
+              1. <strong>嚴禁車內食用重氣味、滴漏或熱湯類食物</strong>：如章魚燒、有大量醬汁的五平餅、外帶無蓋咖啡紙杯、現烤牛肉包等。日本弄髒車廂需支付 <strong>¥10,000 以上高額特殊清潔費</strong>！<br>
+              2. <strong>可食用食物</strong>：礦泉水、瓶裝旋蓋飛驒鮮乳、無糖茶、無氣味小點心。<br>
+              3. <strong>垃圾不留車上</strong>：下車時請將個人竹籤、布丁空瓶、衛生紙集中裝袋帶下車丟棄。
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl dark:bg-black/50 bg-amber-50/80 border dark:border-stone-800 border-amber-200 space-y-2">
+            <div class="font-black dark:text-amber-400 text-red-700 flex items-center gap-2">
+              <i class="fa-solid fa-suitcase-rolling"></i> 行李與過夜安排策略
+            </div>
+            <p>
+              1. <strong>名站民宿連住</strong>：大件行李第一天由機場接送專車直送名站民宿，大部分時間安靜待在名站，出門逛街與出遊皆為輕裝。<br>
+              2. <strong>高山1晚過夜輕裝袋</strong>：Day 6 與 Day 7 前往合掌村與高山過夜，請在 Day 5 晚上準備 1 晚換洗衣物與日常隨身藥品的輕便手提袋/背包即可。<br>
+              3. <strong>高山與新穗高防寒</strong>：10月下旬高山清晨與西穗高口展望台（2,156m）氣溫常在 <strong>5°C ~ 8°C</strong>，務必準備保暖防風外套。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 出發前必備清單 Check-List (具備 LocalStorage 勾選記憶功能) -->
+      <div class="glass-card rounded-2xl p-5 sm:p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-base md:text-lg font-black dark:text-white text-stone-950 flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-red-600"></i> 出發前必備清單 Check-List
+            </h3>
+            <p class="text-xs dark:text-gray-400 text-stone-600">點擊勾選會自動記錄在您的手機/瀏覽器中，重新整理網頁不會消失。</p>
+          </div>
+          <button onclick="resetChecklist()" class="text-xs dark:text-gray-400 text-stone-500 hover:text-red-600 underline cursor-pointer">
+            重設清單
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs" id="checklist-grid">
+          <!-- JS 動態生成可勾選項目 -->
+        </div>
+      </div>
+
+      <!-- 緊急應急資訊卡與支付建議 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="glass-card rounded-2xl p-5">
+          <h4 class="font-black dark:text-white text-stone-950 text-sm flex items-center gap-2 mb-3">
+            <i class="fa-solid fa-phone-volume text-red-600"></i> 日本在留緊急應急聯絡
+          </h4>
+          <ul class="text-xs dark:text-gray-300 text-stone-700 space-y-2">
+            <li class="flex items-center justify-between p-2 rounded-lg dark:bg-black/40 bg-amber-50/70 border dark:border-stone-800 border-amber-200">
+              <span>警察報案專線</span>
+              <span class="font-mono font-black text-red-600 text-sm">110</span>
+            </li>
+            <li class="flex items-center justify-between p-2 rounded-lg dark:bg-black/40 bg-amber-50/70 border dark:border-stone-800 border-amber-200">
+              <span>火警/救護車專線</span>
+              <span class="font-mono font-black text-amber-600 text-sm">119</span>
+            </li>
+            <li class="flex items-center justify-between p-2 rounded-lg dark:bg-black/40 bg-amber-50/70 border dark:border-stone-800 border-amber-200">
+              <span>台北駐日經濟文化代表處（緊急）</span>
+              <span class="font-mono dark:text-gray-200 text-stone-800 font-semibold">+81-80-1009-7179</span>
+            </li>
+            <li class="flex items-center justify-between p-2 rounded-lg dark:bg-black/40 bg-amber-50/70 border dark:border-stone-800 border-amber-200">
+              <span>住宿位置：名古屋站西口 (太閤通口周邊)</span>
+              <span class="dark:text-gray-400 text-stone-500">出示給計程車司機看</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5">
+          <h4 class="font-black dark:text-white text-stone-950 text-sm flex items-center gap-2 mb-3">
+            <i class="fa-solid fa-credit-card text-amber-500"></i> 支付與穿著鞋襪建議
+          </h4>
+          <div class="text-xs dark:text-gray-300 text-stone-700 space-y-2.5 leading-relaxed">
+            <p>• <strong>電子交通卡</strong>：iPhone 綁定 Suica / Pasmo / ICOCA，乘搭地鐵、名鐵普通車、便利商店超省時。</p>
+            <p>• <strong>現金準備</strong>：高山朝市、合掌村攤販、犬山城下町與神社洗錢/御守大部分<strong>僅收現金</strong>，建議每人隨身備足 ¥30,000 ~ ¥40,000 日圓現金。</p>
+            <p>• <strong>鞋襪挑選（極重要）</strong>：犬山城天守梯級陡峭需脫鞋、高山陣屋、吉卜力地球屋與草壁家皆需脫鞋入內，<strong>務必穿著好穿脫、防滑的運動鞋與厚底舒適襪子</strong>。</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== 每日行程 ==================== -->
+    <section id="section-daily" class="hidden space-y-6">
+
+      <!-- 模式切換控制器 (置左對齊) -->
+      <div class="glass-card rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-left">
+        <div class="flex items-center gap-3 text-left w-full sm:w-auto justify-start">
+          <div class="w-10 h-10 rounded-xl dark:bg-black/60 bg-red-100 border dark:border-red-500/40 border-red-300 flex items-center justify-center text-red-600 text-lg flex-shrink-0">
+            <i class="fa-solid fa-sliders"></i>
+          </div>
+          <div class="text-left">
+            <div class="text-xs dark:text-gray-400 text-stone-600 font-medium">目前檢視模式</div>
+            <div class="text-sm font-black dark:text-white text-stone-950 flex items-center gap-2" id="current-mode-status-text">
+              🗺️ 全圖狂奔小隊 (景點全制霸)
+            </div>
+          </div>
+        </div>
+
+        <div class="dark:bg-black/60 bg-amber-100/80 p-1.5 rounded-xl border dark:border-stone-800 border-amber-300 flex items-center justify-start gap-1.5 w-full sm:w-auto">
+          <button id="mode-btn-standard" onclick="setDailyMode('standard')" class="flex-1 sm:flex-initial py-2 px-3 sm:px-4 rounded-lg text-xs md:text-sm font-black flex items-center justify-center gap-1.5 transition-all bg-gradient-to-r from-red-600 to-orange-500 text-white shadow-md cursor-pointer whitespace-nowrap">
+            🗺️ 全圖狂奔小隊
+          </button>
+          <button id="mode-btn-light" onclick="setDailyMode('light')" class="flex-1 sm:flex-initial py-2 px-3 sm:px-4 rounded-lg text-xs md:text-sm font-black flex items-center justify-center gap-1.5 transition-all dark:text-gray-300 text-stone-700 hover:text-black dark:hover:text-white cursor-pointer whitespace-nowrap">
+            🧋 原地掛機小隊 (≤10,000步)
+          </button>
+        </div>
+      </div>
+
+      <!-- 每日水平導航標籤 (Day 1 - Day 9) -->
+      <div class="dark:bg-black/70 bg-white/95 border dark:border-stone-800 border-amber-200 rounded-2xl p-2 sticky top-[72px] z-40 backdrop-blur-md shadow-sm">
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth" id="days-slider-container">
+          <!-- JS 動態生成 Day 按鈕 -->
+        </div>
+      </div>
+
+      <!-- 當日資訊卡片 -->
+      <div class="glass-card rounded-2xl p-5 md:p-6 shadow-md relative overflow-hidden" id="daily-header-panel">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2.5">
+              <span class="font-mono text-xs font-black text-white px-2.5 py-0.5 rounded-md bg-red-600 shadow-sm" id="daily-badge">
+                DAY 01
+              </span>
+              <span class="text-xs dark:text-amber-300 text-stone-900 font-mono font-black" id="daily-date">10/23 (五)</span>
+              <span class="text-xs px-2 py-0.5 rounded dark:bg-black/50 bg-amber-50 border dark:border-stone-800 border-amber-200 dark:text-gray-300 text-stone-700 font-bold" id="daily-tag">
+                包車抵達日
+              </span>
+            </div>
+            <h2 class="text-xl md:text-2xl font-black dark:text-white text-stone-950 mt-1.5" id="daily-title">
+              大須名物相見歡
+            </h2>
+            <p class="text-xs md:text-sm dark:text-gray-300 text-stone-600 mt-1 max-w-2xl leading-relaxed" id="daily-summary">
+              搭乘包車直達名站民宿放行李，大須商圈探索與品嚐道地居酒屋手羽先。
+            </p>
+          </div>
+
+          <!-- 當日時間與預算指標 -->
+          <div class="grid grid-cols-3 md:flex md:flex-col gap-2 md:items-end border-t md:border-t-0 dark:border-stone-800 border-amber-200 pt-3 md:pt-0">
+            <div class="text-center md:text-right">
+              <div class="text-[10px] dark:text-gray-400 text-stone-500 font-mono">出發 / 結束時間</div>
+              <div class="text-xs md:text-sm font-black dark:text-white text-stone-950 font-mono mt-0.5" id="daily-time-span">
+                07:30 ~ 20:30
+              </div>
+            </div>
+            <div class="text-center md:text-right">
+              <div class="text-[10px] dark:text-gray-400 text-stone-500 font-mono">當日預估花費</div>
+              <div class="text-xs md:text-sm font-black text-red-600 dark:text-amber-400 font-mono mt-0.5" id="daily-budget">
+                約 ¥8,500 / 人
+              </div>
+            </div>
+            <div class="text-center md:text-right">
+              <div class="text-[10px] dark:text-gray-400 text-stone-500 font-mono">預估步數</div>
+              <div class="text-xs md:text-sm font-black text-purple-700 dark:text-purple-300 font-mono mt-0.5" id="daily-steps">
+                ~ 13,000 步
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 當日共同行程 vs 分組行程圖例提示 -->
+      <div class="flex flex-wrap items-center gap-3 text-xs dark:bg-black/50 bg-white/90 px-4 py-2.5 rounded-xl border dark:border-stone-800 border-amber-200">
+        <span class="dark:text-gray-400 text-stone-600 font-semibold">卡片類別標示：</span>
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-red-100 dark:bg-red-950/80 border border-red-300 dark:border-red-600/40 text-red-800 dark:text-red-300 font-bold">
+          <i class="fa-solid fa-people-roof text-xs"></i> 共同行程 (全體同行)
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-950/80 border border-purple-300 dark:border-purple-600/40 text-purple-800 dark:text-purple-300 font-bold">
+          🗺️ 全圖狂奔專屬
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950/80 border border-amber-300 dark:border-amber-600/40 text-amber-900 dark:text-amber-300 font-bold">
+          🧋 原地掛機專屬 (膝蓋友善)
+        </span>
+      </div>
+
+      <!-- 當日時間軸行程卡片清單 -->
+      <div class="relative border-l-2 dark:border-red-600/40 border-red-400/60 ml-3 sm:ml-5 pl-5 sm:pl-7 space-y-6" id="daily-timeline-cards">
+        <!-- JS 動態生成詳細時間軸景點卡片 -->
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 頁尾 -->
+  <footer class="mt-16 border-t dark:border-stone-800 border-amber-200 py-6 text-center text-xs dark:text-gray-400 text-stone-600 font-mono">
+    2026 NAGOYA・HIDA・KYOTO EXPLORATION MANUAL // 隨時保持群組通訊暢通
+  </footer>
+
+  <!-- 浮動提示 Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 px-4 py-2.5 rounded-xl bg-stone-900 border border-amber-400 text-amber-400 text-xs font-bold shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-2">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toast-text">已複製成功</span>
+  </div>
+
+  <script>
+    // 完整 9 日行程資料庫
+    const FULL_TRIP_DATA = {
+      1: {
+        date: "10/23 (五)",
+        timeSpan: "07:30 ~ 20:30",
+        shortTitle: "大須名物相見歡",
+        title: "大須名物相見歡",
+        tag: "包車抵達日 (全員同行)",
+        sharedPlan: "機場包車直達民宿放行李、ESCA地下街棊子麵、伍味酉居酒屋晚餐",
+        standardPlan: "大須8條通商圈深度巡禮、戰國與動漫街採買、招財貓集合",
+        lightPlan: "觀音通接萬松寺通平步散策、特色喫茶店小憩、招財貓會合",
+        summary: "搭乘包車直達名站民宿放行李，大須商圈探索與品嚐道地居酒屋手羽先。",
+        budget: "¥8,500 / 人",
+        steps: { standard: "~ 13,000 步", light: "~ 7,500 步" },
+        cards: {
+          standard: [
+            {
+              type: "shared",
+              time: "11:20 - 13:50",
+              title: "中部國際機場 (新特麗亞) ➔ 名古屋民宿",
+              jpTitle: "中部国際空港セントレア ➔ 民宿 (太閤通口)",
+              route: "出關後順著連通空橋至「交通廣場」包車乘車處，專車約50分鐘直達民宿門口放行李。",
+              img: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+1",
+              highlights: "抵達日本後大件行李隨車直達民宿，完全免去拉行李擠電車上下樓梯的負擔。",
+              foods: "機上早餐、機場名產街點心",
+              buys: "若有空檔可在交通廣場便利商店買水與小點心",
+              tips: "司機在交通廣場等候，行李依序上車。",
+              mapQuery: "Chubu Centrair International Airport"
+            },
+            {
+              type: "shared",
+              time: "14:20 - 15:20",
+              title: "名古屋站 ESCA 地下街享用午餐",
+              jpTitle: "エスカ (ESCA) 地下街 吉田棊子麵",
+              route: "從民宿步行約5分鐘即達名站太閤通口地下街入口。",
+              img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+2",
+              highlights: "品嚐名古屋在地傳統平打烏龍「棊子麵 (Kishimen)」，柴魚高湯清甜開胃。",
+              foods: "吉田棊子麵 (きしめん)、炸蝦天婦羅",
+              buys: "ESCA 伴手禮小舖",
+              tips: "晚餐伍味酉口味偏濃，中餐建議以清爽好消化的湯麵為主。",
+              mapQuery: "ESCA Underground Shopping Mall Nagoya"
+            },
+            {
+              type: "standard",
+              time: "15:45 - 18:30",
+              title: "大須觀音寺 ＆ 8條通商圈深度巡禮",
+              jpTitle: "大須観音・大須商店街 (8通り巡り)",
+              route: "搭地鐵東山線至「伏見站」，同月台對面轉鶴舞線1站至「大須觀音站」2號出口即達。",
+              img: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/b347ff?text=Echo+3",
+              highlights: "大須觀音寺參拜求平安，深度穿梭赤門通(動漫電器)、萬松寺通與門前町通。",
+              foods: "新雀本店烤糰子、丸芳炸雞、包包亭台灣胡椒餅、鯛福茶庵鯛魚燒",
+              buys: "藥妝、戰國動漫周邊、日式古著雜貨",
+              tips: "18:30 準時在萬松寺通與新天地通交會處的「巨大招財貓」集合！",
+              mapQuery: "Osu Kannon Temple Nagoya"
+            },
+            {
+              type: "shared",
+              time: "19:00 - 20:30",
+              title: "伍味酉 なごのみせ 晚餐聚餐",
+              jpTitle: "伍味酉 なごのみせ 名古屋名物",
+              route: "從上前津站搭地鐵回名站，步行至餐廳（已提前預約）。",
+              img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+4",
+              highlights: "創立於昭和31年的居酒屋老店，招牌醬汁手羽先唐揚香氣逼人！",
+              foods: "手羽先唐揚、味噌串炸、名古屋交趾雞黑輪",
+              buys: "伍味酉特製七味粉 / 外帶手羽先",
+              tips: "座位已預約，入座後依日本居酒屋禮節每人點一杯飲料低消。",
+              mapQuery: "Gomitori Nagoya"
+            }
+          ],
+          light: [
+            {
+              type: "shared",
+              time: "11:20 - 13:50",
+              title: "中部國際機場 ➔ 名古屋民宿",
+              jpTitle: "中部国際空港セントレア ➔ 民宿 (包車直達)",
+              route: "通關後直接至交通廣場搭乘接送專車直達民宿。",
+              img: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+1",
+              highlights: "大件行李直接進民宿，不拉行李爬車站月台。",
+              foods: "機上早餐、機場特色點心",
+              buys: "隨身飲用水",
+              tips: "放好行李稍作歇息再出發。",
+              mapQuery: "Chubu Centrair International Airport"
+            },
+            {
+              type: "shared",
+              time: "14:20 - 15:20",
+              title: "名站 ESCA 地下街清爽午餐",
+              jpTitle: "エスカ (ESCA) 吉田棊子麵",
+              route: "民宿出發步行約5分鐘直達地下街。",
+              img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+2",
+              highlights: "滑順的扁平棊子麵，搭配清甜淡雅的日式高湯，溫和不膩。",
+              foods: "野菜天婦羅棊子麵",
+              buys: "柴魚乾貨伴手禮",
+              tips: "建議飯後與同伴合搭計程車直接前往大須觀音門口（車程約10分鐘，約¥1,400）。",
+              mapQuery: "ESCA Underground Shopping Mall Nagoya"
+            },
+            {
+              type: "light",
+              time: "15:45 - 18:30",
+              title: "大須觀音平地散策 ＆ 喫茶小憩",
+              jpTitle: "大須観音参拝 ＆ 万松寺通カフェ休息",
+              route: "計程車直達大須觀音門口，只沿平坦的觀音通接萬松寺通直線漫步。",
+              img: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00e699?text=Echo+L1",
+              highlights: "【全平路散步無坡度】參拜完大須觀音後，至萬松寺通喫茶店入座吃甜點，在招財貓等待大部隊會合。",
+              foods: "大須德川庵甜點、現烤醬油糰子、宇治抹茶拿鐵",
+              buys: "日式手作仙貝、常滑燒茶器",
+              tips: "不鑽進複雜的小巷弄，保留腿力在咖啡館優雅度過午後時光。",
+              mapQuery: "Osu Kannon Temple Nagoya"
+            },
+            {
+              type: "shared",
+              time: "19:00 - 20:15",
+              title: "伍味酉 晚餐 ➔ 提早回民宿休息",
+              jpTitle: "伍味酉 晚餐 ➔ 民宿早早泡澡",
+              route: "搭計程車或地鐵回名站伍味酉聚餐，餐後即刻步行回民宿。",
+              img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+4",
+              highlights: "品嚐經典名古屋手羽先與交趾雞串燒，享受熱鬧的昭和居酒屋氛圍。",
+              foods: "甘辛手羽先、八丁味噌黑輪",
+              buys: "外帶炸雞翅",
+              tips: "輕量組約20:15提前回民宿洗澡泡腳，不熬夜逛街。",
+              mapQuery: "Gomitori Nagoya"
+            }
+          ]
+        }
+      },
+      2: {
+        date: "10/24 (六)",
+        timeSpan: "07:00 ~ 20:30",
+        shortTitle: "犬山岐阜美濃行",
+        title: "犬山岐阜美濃行",
+        tag: "名鐵電車＋自主分流",
+        sharedPlan: "Komeda朝食、名鐵特急至犬山、三光稻荷神社、川原町老街日落",
+        standardPlan: "攀爬挑戰45度犬山城天守閣、大垣城、金華山纜車登頂看夜景",
+        lightPlan: "犬山城下町昭和橫丁享飛驒牛、岐阜商場喝咖啡、平地看日落提早回宿",
+        summary: "晨間體驗名古屋早餐Komeda，探訪國寶犬山城與三光稻荷神社；傍晚長良川平地日落與金華山夜景。",
+        budget: "¥6,800 / 人",
+        steps: { standard: "~ 19,000 步", light: "~ 8,500 步" },
+        cards: {
+          standard: [
+            {
+              type: "shared",
+              time: "07:00 - 08:00",
+              title: "Komeda's Coffee 名古屋傳統早餐",
+              jpTitle: "コメダ珈琲店 エスカ店 モーニング",
+              route: "ESCA 地下街內，全員一同入座。",
+              img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+5",
+              highlights: "點黑咖啡免費送厚切吐司＋水煮蛋或小倉紅豆泥，名古屋名物文化經典初體驗！",
+              foods: "厚片吐司抹小倉紅豆餡、冰滴咖啡",
+              buys: "Komeda 罐裝紅豆泥、咖啡豆",
+              tips: "08:16 準時在名鐵名古屋站搭特急前往犬山。",
+              mapQuery: "Komeda Coffee ESCA Nagoya"
+            },
+            {
+              type: "standard",
+              time: "09:15 - 12:30",
+              title: "犬山城登頂挑戰 ＆ 城下町大快朵頤",
+              jpTitle: "国宝犬山城天守閣登閣 ＆ 城下町",
+              route: "犬山站西口出站步行經城下町、針綱神社至犬山城天守。",
+              img: "https://images.unsplash.com/photo-1578637387939-43c525550085?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+6",
+              highlights: "現存最古老天守閣！穿過45度陡峭木梯攀爬至頂樓，俯瞰木曾川震撼水景。",
+              foods: "A5飛驒牛炙燒握壽司、彩色烤田樂、九(COCO)鰻魚釜飯",
+              buys: "三光稻荷神社洗錢錢母、粉紅愛心繪馬",
+              tips: "天守閣需脫鞋提在手上，穿好穿脫防滑的鞋子。",
+              mapQuery: "Inuyama Castle"
+            },
+            {
+              type: "standard",
+              time: "13:00 - 15:40",
+              title: "大垣城 關原之戰西軍大本營巡禮",
+              jpTitle: "大垣城 天守閣見学",
+              route: "名鐵犬山站搭各務原線至岐阜，轉JR東海道本線至大垣站南口步行8分鐘。",
+              img: "https://images.unsplash.com/photo-1528164344705-475426879c0d?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/b347ff?text=Echo+7",
+              highlights: "石田三成入駐的西軍核心據點，四層天守展示關原合戰甲冑與火繩槍實物。",
+              foods: "水饅頭 (水まんじゅう)",
+              buys: "大垣城限定御城印",
+              tips: "門票僅¥100，登頂眺望美濃平原。",
+              mapQuery: "Ogaki Castle"
+            },
+            {
+              type: "standard",
+              time: "16:35 - 20:00",
+              title: "川原町黑壁老街日落 ＆ 金華山岐阜城夜景",
+              jpTitle: "川原町夕日 ＆ 金華山ロープウェー岐阜城夜景",
+              route: "JR岐阜站前搭公車至長良橋站，漫步川原町後搭金華山纜車登山。",
+              img: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+8",
+              highlights: "日本三大山城夜景之一！360度俯瞰長良川與整片岐阜市區夜景燈海。",
+              foods: "川原町屋烤司康配抹茶、綠水庵現烤糰子",
+              buys: "岐阜美濃和紙燈飾、松鼠村紀念品",
+              tips: "山頂風大，請穿保暖外套；下山搭JR回名站吃宵夜。",
+              mapQuery: "Gifu Castle Mt Kinka Ropeway"
+            }
+          ],
+          light: [
+            {
+              type: "shared",
+              time: "07:00 - 08:00",
+              title: "Komeda's Coffee 名古屋傳統早餐",
+              jpTitle: "コメダ珈琲店 エスカ店 (全員同行)",
+              route: "地下街集合一同享用溫熱咖啡與吐司。",
+              img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+5",
+              highlights: "點咖啡即贈厚切吐司，溫潤晨光享受名古屋悠閒節奏。",
+              foods: "吐司抹水煮蛋沙拉或紅豆泥",
+              buys: "原裝咖啡濾掛包",
+              tips: "搭名鐵特急自由席，輕裝無壓力。",
+              mapQuery: "Komeda Coffee ESCA Nagoya"
+            },
+            {
+              type: "light",
+              time: "09:15 - 12:30",
+              title: "犬山城下町 ＆ 昭和橫丁慢活入座",
+              jpTitle: "三光稲荷神社参拝 ＆ 昭和横丁グルメ",
+              route: "三光稻荷神社拍照洗錢，不爬犬山城天守閣！",
+              img: "https://images.unsplash.com/photo-1578637387939-43c525550085?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00e699?text=Echo+L2",
+              highlights: "【膝蓋友善】天守外圍合影後，直奔昭和橫丁坐著品嚐炙燒A5飛驒牛串與田樂燒，等待大隊下城會合！",
+              foods: "飛驒牛炙燒握壽司、甘酒烤糰子、味噌黑輪",
+              buys: "粉紅愛心御守、招財洗錢錢母",
+              tips: "完全避開45度極陡峭木階梯，保留體力給下午。",
+              mapQuery: "Showa Yokocho Inuyama"
+            },
+            {
+              type: "light",
+              time: "13:30 - 15:40",
+              title: "岐阜車站 Asty 商場 / City Tower 43",
+              jpTitle: "JR岐阜駅直結 Asty ＆ シティタワー43展望台",
+              route: "犬山搭車至岐阜站後，留在共構商場，不去大垣城奔波！",
+              img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+L3",
+              highlights: "【免奔波】走室內空橋直達 City Tower 43 免費景觀台吹冷氣喝咖啡，俯瞰岐阜平原美景。",
+              foods: "星巴克季節飲品、岐阜特產栗金團 (栗きんとん)",
+              buys: "岐阜在地名釀、日式藥妝雜貨",
+              tips: "不用轉車換月台，在舒適商場悠閒等大隊會合。",
+              mapQuery: "Gifu City Tower 43"
+            },
+            {
+              type: "light",
+              time: "16:35 - 18:30",
+              title: "川原町老街平地日落 ➔ 計程車提早回名站",
+              jpTitle: "長良川畔の夕日 ＆ カフェ休息 ➔ 名古屋帰着",
+              route: "搭公車至長良川黑壁老街漫步喝茶，不搭纜車上山！",
+              img: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+L4",
+              highlights: "在百年藏造古民家咖啡館「川原町屋」品嚐宇治抹茶，欣賞長良川夕陽暮色。",
+              foods: "紅豆白玉湯、熱拿鐵手作麵包",
+              buys: "長良川香魚仙貝",
+              tips: "大隊去搭登山夜景纜車時，搭計程車回岐阜站搭JR回名站吃熱騰騰豬排咖哩，提早2小時回宿！",
+              mapQuery: "Kawaramachi Gifu"
+            }
+          ]
+        }
+      },
+      3: {
+        date: "10/25 (日)",
+        timeSpan: "07:30 ~ 20:30",
+        shortTitle: "京都名剎秋楓遊",
+        title: "京都名剎秋楓遊",
+        tag: "新幹線極速直達 (自主分流)",
+        sharedPlan: "新幹線直達京都車站、進進堂三條河原町店法式可頌早餐",
+        standardPlan: "琉璃光院倒影、叡山空中纜車、比叡山延曆寺東塔、千房大阪燒",
+        lightPlan: "錦市場平路美食、錦天滿宮參拜、四條喫茶、14:00新幹線回名宿補眠",
+        summary: "搭乘新幹線直奔京都進進堂可頌早餐，佛寺賞楓或錦市場散策提前返宿。",
+        budget: "¥16,500 / 人",
+        steps: { standard: "~ 22,000 步", light: "~ 8,500 步" },
+        cards: {
+          standard: [
+            {
+              type: "shared",
+              time: "07:30 - 09:30",
+              title: "JR 東海道新幹線 ➔ 京都進進堂早餐",
+              jpTitle: "のぞみ新幹線 ➔ 進々堂 三条河原町店",
+              route: "搭乘 Nozomi 號僅35分鐘直達京都車站，轉地鐵至京都市役所前站抵達進進堂。",
+              img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+9",
+              highlights: "創立於1913年，京都傳奇法式烘焙坊！品嚐剛出爐可頌麵包與自製果醬。",
+              foods: "法式可頌麵包套餐、自家焙煎熱黑咖啡",
+              buys: "進進堂手工餅乾、外帶歐式長棍",
+              tips: "假日新幹線人潮多，建議事先用 SmartEX APP 或窗口預約連號座位。",
+              mapQuery: "Shinshindo Sanjo Kawaramachi Kyoto"
+            },
+            {
+              type: "standard",
+              time: "10:20 - 12:00",
+              title: "琉璃光院 秋季特別拜觀",
+              jpTitle: "瑠璃光院 秋の特別拝観",
+              route: "京阪本線出町柳站轉叡山電車至終點八瀨比叡山口站步行5分鐘。",
+              img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+10",
+              highlights: "經典黑漆木桌倒影！紅、黃、綠三色庭園秋楓透過桌面鏡面反射，美如畫卷。",
+              foods: "院內甘酒抹茶和菓子",
+              buys: "琉璃光院限定手抄經紙、楓葉御守",
+              tips: "秋季拜觀門票¥2,000，入內需穿襪子。",
+              mapQuery: "Rurikoin Temple Kyoto"
+            },
+            {
+              type: "standard",
+              time: "12:50 - 17:00",
+              title: "比叡山空中纜車 ＆ 世界遺產延曆寺",
+              jpTitle: "比叡山ロープウェイ ＆ 比叡山延暦寺 (東塔根本中堂)",
+              route: "叡山纜車直登山頂，展望餐廳午餐後搭接駁車至東塔，再搭日本最長坂本纜車下山。",
+              img: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/b347ff?text=Echo+11",
+              highlights: "日本佛教之母山！山頂餐廳俯瞰全日本最大湖琵琶湖，一隅會館品嚐守護神生肖梵字拿鐵。",
+              foods: "近江牛咖哩飯、生肖守護神梵字拿鐵",
+              buys: "不滅法燈開運香、延曆寺紀念御朱印",
+              tips: "坂本纜車下山時正好迎著琵琶湖黃金日落！",
+              mapQuery: "Enryaku-ji Temple Hieizan"
+            },
+            {
+              type: "shared",
+              time: "18:00 - 20:30",
+              title: "京都車站千房大阪燒 ➔ 新幹線回名站",
+              jpTitle: "千房 (Chibo) 京都AVANTI店 ➔ 新幹線",
+              route: "JR比叡山坂本站搭湖西線回京都站，AVANTI地下街會合晚餐。",
+              img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+12",
+              highlights: "鐵板現煎大阪燒與特濃日式炒麵，淋上特製美乃滋與柴魚片起舞！",
+              foods: "道頓堀燒、牛筋炒麵、特調沙瓦",
+              buys: "京都伊勢丹辻利抹茶生八橋",
+              tips: "每人點一杯飲料低消，19:30搭新幹線返回名古屋。",
+              mapQuery: "Chibo Kyoto Avanti"
+            }
+          ],
+          light: [
+            {
+              type: "shared",
+              time: "07:30 - 09:30",
+              title: "JR 東海道新幹線 ➔ 進進堂早餐",
+              jpTitle: "のぞみ新幹線 ➔ 進々堂 三条河原町店 (全員同行)",
+              route: "新幹線抵達京都站後，直接搭計程車至進進堂（免地鐵轉乘上下樓梯）。",
+              img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+9",
+              highlights: "剛出爐的可頌與自選烘焙麵包籃，在百年優雅氛圍中享用美味咖啡。",
+              foods: "可頌奶油炒蛋套餐、鮮榨柳橙汁",
+              buys: "法式小餅乾伴手禮",
+              tips: "搭計程車車資約¥1,200/車，4人均攤輕鬆省力。",
+              mapQuery: "Shinshindo Sanjo Kawaramachi Kyoto"
+            },
+            {
+              type: "light",
+              time: "10:00 - 12:30",
+              title: "錦市場平路美食 ＆ 錦天滿宮祈福",
+              jpTitle: "錦市場食べ歩き ＆ 錦天満宮参拝",
+              route: "從進進堂悠閒散步約10分鐘至錦市場入口，一路平坦長街。",
+              img: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00e699?text=Echo+L5",
+              highlights: "【平路美食天堂】品嚐現煎玉子燒、天婦羅魚串、章魚燒，盡頭洗手參拜掌管學問與智慧的錦天滿宮。",
+              foods: "三木雞卵高湯玉子燒、櫂KAI小章魚鵪鶉蛋、豆乳甜甜圈",
+              buys: "七味唐辛子、漬物老店千枚漬",
+              tips: "街內人多時請放慢腳步，邊走邊吃請在店前食用完畢再走。",
+              mapQuery: "Nishiki Market Kyoto"
+            },
+            {
+              type: "light",
+              time: "12:30 - 13:45",
+              title: "四條河原町抹茶喫茶小憩",
+              jpTitle: "茶寮都路里 / 高島屋和風カフェ休息",
+              route: "錦市場旁步行至高島屋或四條通茶寮都路里。",
+              img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+L6",
+              highlights: "【完全不耗腳力】入座舒適日式甜點沙發，品嚐正統特選都路里宇治抹茶聖代。",
+              foods: "抹茶聖代、抹茶白玉厥餅",
+              buys: "京都限定辻利抹茶粉、焙茶茶包",
+              tips: "下午不去比叡山登山纜車，保留充裕的京都慢活步調。",
+              mapQuery: "Saryo Tsujiri Gion Main Store Kyoto"
+            },
+            {
+              type: "light",
+              time: "14:00 - 15:00",
+              title: "搭乘新幹線提早返回名古屋民宿補眠",
+              jpTitle: "午後新幹線で名古屋へ直帰 ➔ 民宿で昼寝休息",
+              route: "四條搭計程車至京都站，搭新幹線返回名站民宿。",
+              img: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/b347ff?text=Echo+L7",
+              highlights: "【核心省力】比大隊提早4小時回到溫暖民宿！放下行囊躺平午睡，晚上名站自選清爽定食，步數完全在萬步內！",
+              foods: "名站地下街炸蝦飯糰便當",
+              buys: "京都站新幹線限定伴手禮",
+              tips: "避開傍晚返程人潮，悠閒自由支配傍晚時間。",
+              mapQuery: "Nagoya Station"
+            }
+          ]
+        }
+      },
+      4: {
+        date: "10/26 (一)",
+        timeSpan: "07:00 ~ 19:30",
+        shortTitle: "吉卜力經典巡禮",
+        title: "吉卜力經典巡禮",
+        tag: "全員持有頂級 Premium 門票",
+        sharedPlan: "KAKO朝食減量留胃、魔女之谷搶排琪琪麵包、14:00大倉庫名場面打卡",
+        standardPlan: "全五區走訪、走訪心之谷地球屋、龍貓森林步道與草壁家健行",
+        lightPlan: "搭乘直達巴士免擠電車、大倉庫室內平路參觀、免爬陡坡提早回宿",
+        summary: "早餐少吃留胃！10:00直衝魔女之谷搶克里克麵包，參觀霍爾城堡與地球屋，14:00大倉庫名場面打卡。",
+        budget: "¥12,800 / 人",
+        steps: { standard: "~ 16,000 步", light: "~ 12,000 步 (著重動畫場景)" },
+        cards: {
+          standard: [
+            {
+              type: "shared",
+              time: "07:00 - 08:00",
+              title: "Coffee House KAKO 輕早餐",
+              jpTitle: "コーヒーハウスKAKO 柳橋店 (早餐減量)",
+              route: "名站出發步行至柳橋店，兩人分食一份小吐司。",
+              img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+13",
+              highlights: "【策略重點】早餐點一杯黑咖啡配半份果醬鮮奶油吐司即可，把胃口完全留給魔女之谷的琪琪麵包！",
+              foods: "Chantilly 特製四色果醬吐司、手沖黑咖啡",
+              buys: "自家製果醬玻璃瓶",
+              tips: "08:30 前往名鐵巴士中心4樓24號月台搭直達巴士。",
+              mapQuery: "Coffee House KAKO Yanagibashi Nagoya"
+            },
+            {
+              type: "shared",
+              time: "10:00 - 12:00",
+              title: "第一站直衝【魔女之谷】搶排克里克麵包店",
+              jpTitle: "魔女の谷 ぐーちょきぱん屋 ＆ ハウルの城",
+              route: "園區一開門立刻快步前往魔女之谷，先排麵包再參觀！",
+              img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+14",
+              highlights: "【必做清單】買琪琪花圈麵包與牛角可頌，在廣場長椅享用！憑Premium票進入霍爾移動城堡內部看卡西法壁爐，上二樓看琪琪閣樓臥房。",
+              foods: "克里克剛出爐麵包、卡西法造型培根蛋吐司",
+              buys: "魔女之谷限定黑貓吉吉周邊、霍爾魔法馬克杯",
+              tips: "麵包店中午常需排40分鐘以上，一開園先買省下大把時間！",
+              mapQuery: "Ghibli Park Witch Valley"
+            },
+            {
+              type: "standard",
+              time: "12:00 - 13:40",
+              title: "青春之丘 (地球屋) ＆ 幽靈之里 (達達拉城)",
+              jpTitle: "青春の丘 地球屋 ＆ もののけの里",
+              route: "漫步至青春之丘參觀心之谷，再前往幽靈之里拍乙事主。",
+              img: "https://images.unsplash.com/photo-1528164344705-475426879c0d?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/b347ff?text=Echo+15",
+              highlights: "走進天澤聖司的提琴製作工坊，旋轉木造樓梯；穿過達達拉城草頂屋舍，拍巨大邪魔神石像與乙事主滑梯。",
+              foods: "五平餅燒烤體驗",
+              buys: "心之谷古董鐘明信片、貓男爵迷你磁鐵",
+              tips: "進入地球屋內部需脫鞋。",
+              mapQuery: "Ghibli Park Hill of Youth"
+            },
+            {
+              type: "shared",
+              time: "14:00 - 16:30",
+              title: "【吉卜力大倉庫】核心室內展館名場面大集結",
+              jpTitle: "ジブリの大倉庫 名場面展 (14:00入場指定)",
+              route: "準時持票驗票進入大倉庫，全室內冷氣平路參觀。",
+              img: "https://images.unsplash.com/photo-1563089145-599997674d42?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00e699?text=Echo+16",
+              highlights: "【名場面全制霸】排隊與《神隱少女》無臉男同坐海上列車合影！漫步《天空之城》廢墟機械兵、艾莉緹巨大植物花園，看獵座原創短篇動畫。",
+              foods: "大陸橫斷飛行洋食三明治、俄羅斯點心西伯利亞",
+              buys: "冒險飛行團旗艦店：神隱少女電車金屬模型、湯婆婆抱枕",
+              tips: "指定14:00進場，請提前10分鐘在大倉庫排隊口等候。",
+              mapQuery: "Ghibli Grand Warehouse"
+            },
+            {
+              type: "standard",
+              time: "16:45 - 19:30",
+              title: "動動力森林 (草壁家) ➔ 風來坊晚餐",
+              jpTitle: "どんどこ森 サツキとメイの家 ➔ 風来坊",
+              route: "穿過森林丘陵至草壁家，搭直達巴士回名站享用風來坊手羽先。",
+              img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+17",
+              highlights: "親手轉動《龍貓》水井汲水器，走進昭和時代草壁家尋找灰塵精靈！",
+              foods: "風來坊元祖手羽先炸雞翅、炸雞皮、海苔茶泡飯",
+              buys: "木雕龍貓御守、龍貓橡實小陶偶",
+              tips: "草壁家內部需脫鞋；晚上風來坊世紀豐田大樓店已訂位。",
+              mapQuery: "Furaibo Century Toyota Building Nagoya"
+            }
+          ],
+          light: [
+            {
+              type: "shared",
+              time: "07:30 - 08:30",
+              title: "Coffee House KAKO 輕量早餐",
+              jpTitle: "コーヒーハウスKAKO 柳橋店 (少吃留胃)",
+              route: "步行悠閒吃早餐，搭乘名鐵巴士直達吉卜力公園門口。",
+              img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+13",
+              highlights: "咖啡配少量吐司，直達巴士一車直達免去地鐵站轉車擠人。",
+              foods: "紅豆鮮奶油厚吐司、熱美式咖啡",
+              buys: "特調咖啡包",
+              tips: "搭名鐵巴士中心4樓24號月台直達車（車程約50分鐘）。",
+              mapQuery: "Coffee House KAKO Yanagibashi Nagoya"
+            },
+            {
+              type: "shared",
+              time: "10:00 - 12:00",
+              title: "直衝【魔女之谷】搶買克里克麵包 ＆ 參觀建築",
+              jpTitle: "魔女の谷 ぐーちょきぱん屋 ＆ ハウルの城",
+              route: "開園第一站快步排麵包，隨後坐下悠閒品嚐！",
+              img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+14",
+              highlights: "【慢活享受】一開園直衝買麵包不用久排！坐在歐風噴水池廣場慢慢吃，參觀霍爾城堡一樓客廳與魔女之家。",
+              foods: "現烤可頌麵包、魔女花圈麵包、熱咖啡",
+              buys: "吉吉貓咪玩偶、魔女圍裙",
+              tips: "入座長椅休息欣賞歐風建築外觀噴氣動態。",
+              mapQuery: "Ghibli Park Witch Valley"
+            },
+            {
+              type: "light",
+              time: "12:15 - 13:30",
+              title: "青春之丘 (地球屋) 參觀 ＆ 樹蔭小憩",
+              jpTitle: "青春の丘 地球屋見学 ＆ ベンチ休息",
+              route: "步行約5分鐘至青春之丘，參觀心之谷古董店。",
+              img: "https://images.unsplash.com/photo-1528164344705-475426879c0d?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00e699?text=Echo+L8",
+              highlights: "參觀天澤聖司的木造提琴工坊，坐在沙發上感受昭和陽光，隨後在樹蔭長椅歇息養足體力。",
+              foods: "隨身茶飲小點心",
+              buys: "貓男爵精緻明信片",
+              tips: "不去遠處起伏步道的幽靈之里，保留體力給14:00大倉庫。",
+              mapQuery: "Ghibli Park Hill of Youth"
+            },
+            {
+              type: "shared",
+              time: "14:00 - 16:30",
+              title: "【吉卜力大倉庫】名場面經典巡禮 ＆ 旗艦店採買",
+              jpTitle: "ジブリの大倉庫 (全員同行)",
+              route: "準時14:00驗票進入全室內冷氣舒適的大倉庫。",
+              img: "https://images.unsplash.com/photo-1563089145-599997674d42?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+16",
+              highlights: "【名場面合影】排隊與無臉男拍照、欣賞天空之庭巨大機械兵、在影像展示室坐著看專屬短篇動畫！",
+              foods: "西伯利亞蛋糕捲、特調蘋果汁",
+              buys: "大倉庫限定鐵盒餅乾、刺繡手帕、徽章",
+              tips: "全館皆有平路電梯與長椅，步數完全可控。",
+              mapQuery: "Ghibli Grand Warehouse"
+            },
+            {
+              type: "light",
+              time: "16:45 - 19:30",
+              title: "搭直達巴士回名站 ➔ 風來坊晚餐",
+              jpTitle: "直通バスで名駅へ ➔ 風来坊で合流夕食",
+              route: "大倉庫結束後直接搭名鐵巴士回名站，不爬遠方龍貓草壁家！",
+              img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+17",
+              highlights: "【省力訣竅】跳過需健行爬陡坡的草壁家，在巴士上安穩睡覺回名站，與大隊會合吃香酥風來坊雞翅！",
+              foods: "甘口手羽先、名古屋炸串、炒烏龍",
+              buys: "風來坊外帶禮盒",
+              tips: "晚餐後回民宿早早整理戰利品泡澡休息。",
+              mapQuery: "Furaibo Century Toyota Building Nagoya"
+            }
+          ]
+        }
+      },
+      5: {
+        date: "10/27 (二)",
+        timeSpan: "08:00 ~ 20:30",
+        shortTitle: "熱田神宮榮商圈",
+        title: "熱田神宮榮商圈",
+        tag: "地鐵＋市區漫遊 (全員大合聚)",
+        sharedPlan: "熱田神宮平坦林蔭漫步、あつた蓬萊軒本店元祖鰻魚飯三吃",
+        standardPlan: "白鳥庭園、榮商圈百貨逐棟巡禮、登上中部電力電視塔頂端夜景",
+        lightPlan: "久屋大通露天咖啡座小憩、綠洲21水之宇宙船欣賞平地水池夜景",
+        summary: "參訪日本三大神器熱田神宮，品嚐蓬萊軒元祖鰻魚飯三吃；榮商圈水之宇宙船夜拍。",
+        budget: "¥9,500 / 人",
+        steps: { standard: "~ 17,000 步", light: "~ 8,500 步" },
+        cards: {
+          standard: [
+            {
+              type: "shared",
+              time: "09:30 - 11:20",
+              title: "熱田神宮 ＆ 白鳥庭園漫步",
+              jpTitle: "熱田神宮参拝 ＆ 白鳥庭園",
+              route: "搭名鐵至「神宮前站」步行3分鐘入宮；派代表提早至蓬萊軒領號碼牌。",
+              img: "https://images.unsplash.com/photo-1578637387939-43c525550085?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+18",
+              highlights: "供奉日本三大神器「草薙劍」的千年古宮！漫步千年巨大楠木林，隨後走入白鳥庭園欣賞清幽池泉。",
+              foods: "宮棊子麵 (神宮境內)",
+              buys: "熱田神宮開運御守、別天神破魔矢",
+              tips: "蓬萊軒本店11:30開門，務必提早登記名字取得第一批入席號碼牌！",
+              mapQuery: "Atsuta Jingu Shrine Nagoya"
+            },
+            {
+              type: "shared",
+              time: "11:30 - 13:00",
+              title: "あつた蓬莱軒 本店 元祖鰻魚飯三吃",
+              jpTitle: "あつた蓬莱軒 本店 ひつまぶし",
+              route: "神宮南門步行3分鐘抵達這座百年老舖日式庭園建築。",
+              img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+19",
+              highlights: "【名古屋美食之冠】備長炭現烤外皮酥脆、肉質肥嫩！一吃原味、二添海苔芥末紫蘇、三淋清爽高湯變身茶泡飯！",
+              foods: "元祖ひつまぶし (鰻魚飯三吃)、鰻魚骨仙貝、鰻魚蛋捲",
+              buys: "蓬萊軒特製蒲燒醬汁瓶",
+              tips: "百年木造榻榻米老宅入內需脫鞋，全員同行大快朵頤。",
+              mapQuery: "Atsuta Horaiken Honten Nagoya"
+            },
+            {
+              type: "standard",
+              time: "13:30 - 17:30",
+              title: "榮商圈百貨巡禮 ＆ 登上電視塔夜景",
+              jpTitle: "栄百貨店巡り ＆ 中部電力 MIRAI TOWER",
+              route: "搭名城線至矢場町站，一路從Parco、松坂屋逛至久屋大通公園並登塔。",
+              img: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/b347ff?text=Echo+20",
+              highlights: "逛街補貨最佳時機！日暮時分登上 MIRAI TOWER 展望台，360度俯瞰名古屋市區全景萬家燈火。",
+              foods: "Harbs 榮本店水果千層蛋糕",
+              buys: "Uniqlo/GU、日系服飾、Snoopy Town 限定品",
+              tips: "17:30 於綠洲21頂樓水之宇宙船與輕量組會合拍照。",
+              mapQuery: "Chubu Electric Power MIRAI TOWER Nagoya"
+            },
+            {
+              type: "shared",
+              time: "18:00 - 20:30",
+              title: "綠洲21水之宇宙船 ➔ 超市採買民宿煮火鍋",
+              jpTitle: "オアシス21 水の宇宙船 ➔ 民宿で鍋料理",
+              route: "綠洲21拍倒影後搭櫻通線回名站，超市採買食材回民宿。",
+              img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+21",
+              highlights: "漫步透明玻璃天台「水之宇宙船」，拍下電視塔倒映在流動水池中的科幻夜景！",
+              foods: "在地鮮切黑毛和牛、時令蔬菜豆腐日式火鍋",
+              buys: "高山行過夜隨身零食",
+              tips: "晚餐大家輪流洗澡煮火鍋，收拾好明早前往高山的1晚輕裝袋！",
+              mapQuery: "Oasis 21 Nagoya"
+            }
+          ],
+          light: [
+            {
+              type: "shared",
+              time: "09:30 - 11:20",
+              title: "熱田神宮平坦林蔭漫步・全員同行",
+              jpTitle: "熱田神宮平坦散策 (不走白鳥庭園)",
+              route: "名鐵直達神宮前站，只在平坦神宮林蔭散步，不繞走白鳥庭園！",
+              img: "https://images.unsplash.com/photo-1578637387939-43c525550085?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+18",
+              highlights: "【平路無坡】參拜古樸神宮，在巨木樹蔭下深呼吸吸收芬多精，提前到蓬萊軒庭園陰涼處休息等開席。",
+              foods: "熱茶、日式米餅",
+              buys: "神宮消災御守",
+              tips: "完全平路，無任何爬坡與長梯級。",
+              mapQuery: "Atsuta Jingu Shrine Nagoya"
+            },
+            {
+              type: "shared",
+              time: "11:30 - 13:00",
+              title: "あつた蓬莱軒 本店 元祖鰻魚飯三吃",
+              jpTitle: "あつた蓬莱軒 本店 (全員大快朵頤)",
+              route: "步行3分鐘入座吹冷氣，全員一同享受國寶級鰻魚料理。",
+              img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+19",
+              highlights: "品嚐炭火焦香濃郁的鰻魚飯，茶湯淋入瞬間香氣撲鼻，極致享受！",
+              foods: "元祖鰻魚飯三吃定食",
+              buys: "蒲燒鰻魚乾",
+              tips: "席間多休息，慢慢品味美食。",
+              mapQuery: "Atsuta Horaiken Honten Nagoya"
+            },
+            {
+              type: "light",
+              time: "13:30 - 17:30",
+              title: "久屋大通露天咖啡座 ＆ 平地漫步",
+              jpTitle: "久屋大通公園カフェ休息 (不上電視塔頂)",
+              route: "搭地鐵至久屋大通站，找間林蔭露天咖啡館入座放空。",
+              img: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00e699?text=Echo+L9",
+              highlights: "【悠閒慢活】不爬 MIRAI TOWER 電視塔頂端！在 Ralph's Coffee 露天座品嚐咖啡甜點，感受秋季微風。",
+              foods: "Ralph's 美式布朗尼冰淇淋、手沖拿鐵",
+              buys: "特色精品選物小物",
+              tips: "17:30 直接搭乘電梯直達綠洲21頂樓水之宇宙船與大隊會合。",
+              mapQuery: "Hisaya Odori Park Nagoya"
+            },
+            {
+              type: "shared",
+              time: "18:00 - 20:30",
+              title: "綠洲21水之宇宙船 ➔ 民宿溫馨火鍋夜",
+              jpTitle: "オアシス21 (平地夜景) ➔ 民宿で鍋パーティー",
+              route: "電梯直達水之宇宙船玻璃天台看倒影，搭地鐵回名站。",
+              img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+21",
+              highlights: "【平地最美近景】在流動水池邊拍攝亮起的電視塔倒影，全區平坦電梯直達！",
+              foods: "熱騰騰蔬菜和牛火鍋",
+              buys: "高山山區防寒用品/零食",
+              tips: "回宿後打包高山1晚過夜輕便手提袋（大行李留名站民宿）。",
+              mapQuery: "Oasis 21 Nagoya"
+            }
+          ]
+        }
+      },
+      6: {
+        date: "10/28 (三)",
+        timeSpan: "07:30 ~ 20:00",
+        shortTitle: "郡上合掌村高山",
+        title: "郡上合掌村高山",
+        tag: "專屬包車二日遊-1 (全員同車同行)",
+        sharedPlan: "專屬包車直達郡上八幡、合掌村同行、晚間丸明飛驒牛燒肉盛宴",
+        standardPlan: "徒步登郡上八幡城、合掌村健行三小屋與和田家、高山陣屋參觀",
+        lightPlan: "合掌村包車上展望台拍童話全景、高山老街挑選古民家喫茶享午茶",
+        summary: "專車前往郡上八幡城、白川鄉合掌村童話世界，入住高山享用飛驒牛燒肉盛宴。",
+        budget: "¥18,500 / 人",
+        steps: { standard: "~ 15,000 步", light: "~ 7,500 步" },
+        cards: {
+          standard: [
+            {
+              type: "shared",
+              time: "07:30 - 10:00",
+              title: "包車出發 ➔ 郡上八幡城巡禮",
+              jpTitle: "郡上八幡城 (日本最古の木造再建城)",
+              route: "民宿門口專車出發直達郡上八幡山頂停車場。",
+              img: "https://images.unsplash.com/photo-1528164344705-475426879c0d?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+22",
+              highlights: "奧美濃小京都與水都！山頂停車場俯瞰群山紅葉環抱的木造山城美景。",
+              foods: "郡上天然水、八幡名物點心",
+              buys: "郡上逼真食物模型鑰匙圈",
+              tips: "山區車程較長，包車上嚴禁湯水與油煙氣味食物。",
+              mapQuery: "Gujo Hachiman Castle"
+            },
+            {
+              type: "standard",
+              time: "11:00 - 13:30",
+              title: "白川鄉合掌村 深度漫遊 ＆ 忠兵衛三小屋",
+              jpTitle: "白川郷 合掌造り集落 散策",
+              route: "包車抵達合掌村停車場，步行過相逢橋漫步村落與展望台。",
+              img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+23",
+              highlights: "宛如童話薑餅屋的茅草屋頂聚落！漫步忠兵衛三小屋拍明信片經典視角，參觀和田家內部挑高木造結構。",
+              foods: "飛驒牛朴葉味噌烤肉、水布丁、烤五平餅、濃郁飛驒牛奶",
+              buys: "元祖紫蘇最中餅、合掌造造型土鈴",
+              tips: "切勿踏入私人農田與未開放庭院；13:30集合上車。",
+              mapQuery: "Shirakawa-go Historic Village"
+            },
+            {
+              type: "standard",
+              time: "14:30 - 20:00",
+              title: "高山陣屋 ＆ 老街巡禮 ➔ 丸明飛驒牛大餐",
+              jpTitle: "高山陣屋 ＆ 三町筋 ➔ 丸明 飛騨牛焼肉",
+              route: "包車至高山陣屋下車參觀，過中橋漫步三町筋老街，晚上享用飛驒牛燒肉。",
+              img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/b347ff?text=Echo+24",
+              highlights: "日本唯一保存完整的江戶幕府官府陣屋！逛三町筋老街投幣試喝原田酒造在地清酒，晚上享用炭火炙燒A5飛驒牛燒肉盛宴！",
+              foods: "丸明炭火飛驒牛燒肉定食、飛驒牛炙燒握壽司",
+              buys: "高山猿寶寶 (さるぼぼ) 玩偶、船坂酒造深山菊大吟釀",
+              tips: "味之與平/丸明已提前規劃，大口吃牛肉補充能量！",
+              mapQuery: "Maruaki Hida Takayama"
+            }
+          ],
+          light: [
+            {
+              type: "shared",
+              time: "07:30 - 10:00",
+              title: "包車出發 ➔ 郡上八幡城平地拍照",
+              jpTitle: "郡上八幡城 駐車場平地打卡 (全員同車)",
+              route: "專車直達山頂停車場，平地洗手間休息拍照。",
+              img: "https://images.unsplash.com/photo-1528164344705-475426879c0d?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+22",
+              highlights: "【不爬陡梯】在停車場平坦處遠眺這座木造城堡與山巒紅葉外觀，輕鬆拍照。",
+              foods: "車上常備礦泉水、小茶點",
+              buys: "食物模型伴手禮",
+              tips: "不登天守閣陡樓梯，在洗手間整理儀容準備往合掌村。",
+              mapQuery: "Gujo Hachiman Castle"
+            },
+            {
+              type: "light",
+              time: "11:00 - 13:30",
+              title: "合掌村專車上展望台 ＆ 平路古民家午餐",
+              jpTitle: "白川郷 荻町展望台 (車で直行) ＆ 平坦道グルメ",
+              route: "請包車司機載至荻町城跡展望台拍照，再開至平地聚落漫步。",
+              img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00e699?text=Echo+L10",
+              highlights: "【免爬山看全景】專車直達展望台拍俯瞰大景！進村後只在平路小鋪吃飛驒牛可樂餅與水布丁，古民家入座吃朴葉味噌豆腐。",
+              foods: "いろり飛驒牛朴葉味噌定食、現烤水布丁",
+              buys: "合掌造木造明信片",
+              tips: "不走遠路去三小屋，平路漫步超悠閒。",
+              mapQuery: "Shirakawa-go Ogimachi Castle Observation Deck"
+            },
+            {
+              type: "light",
+              time: "14:30 - 20:00",
+              title: "高山老街古民家喫茶 ➔ 丸明飛驒牛大餐",
+              jpTitle: "三町筋 古民家カフェ (陣屋不見学) ➔ 飛騨牛焼肉",
+              route: "陣屋門口打卡後直接過中橋進入老街，挑選百年喫茶店入座！",
+              img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+24",
+              highlights: "【省力入座】跳過陣屋脫鞋長廊參觀！至「藍花咖啡店」或「茶寮三葉」品嚐抹茶紅豆白玉，晚上全員合聚丸明吃頂級飛驒牛燒肉！",
+              foods: "丸明特選飛驒牛A5拼盤、厚切牛舌",
+              buys: "飛驒高山味噌、猿寶寶護身符",
+              tips: "大餐後散步3分鐘回高山民宿早點洗澡休息。",
+              mapQuery: "Maruaki Hida Takayama"
+            }
+          ]
+        }
+      },
+      7: {
+        date: "10/29 (四)",
+        timeSpan: "07:50 ~ 19:30",
+        shortTitle: "新穗高與上高地",
+        title: "新穗高與上高地",
+        tag: "專屬包車二日遊-2 (全員同車同行)",
+        sharedPlan: "專車直達新穗高雙層纜車、西穗高口展望台看雪山連峰、包車回名站",
+        standardPlan: "早起宮川朝市、上高地大正池至河童橋健行步道(約1.5~2小時)",
+        lightPlan: "接駁車直達河童橋總站、五千尺廚房景觀吧台坐著賞溪景享山賊燒",
+        summary: "搭乘日本唯一雙層大纜車登 2,156m 展望台賞雪山連峰；下午上高地河童橋絕景，傍晚包車直達回名站。",
+        budget: "¥14,500 / 人",
+        steps: { standard: "~ 18,000 步", light: "~ 6,500 步 (極致省力)" },
+        cards: {
+          standard: [
+            {
+              type: "shared",
+              time: "07:50 - 11:20",
+              title: "新穗高雙層纜車 ＆ 西穗高口雪山連峰",
+              jpTitle: "新穂高第2ロープウェイ (2,156m) ＆ 白樺平足湯",
+              route: "包車直達新穗高溫泉站，搭纜車直登西穗高口展望台。",
+              img: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+25",
+              highlights: "日本唯一雙層纜車！白樺平站戶外免費泡足湯吃剛出爐牛角可頌，登上2,156公尺西穗高口展望台，360度飽覽槍岳與北阿爾卑斯白雪紅葉！",
+              foods: "阿爾卑斯手工布丁、頂霜淇淋、飛驒熱牛奶",
+              buys: "新穗高雙層纜車模型、山脈造型吉拿棒",
+              tips: "山頂氣溫約5°C~8°C，請務必穿著防風保暖外套！",
+              mapQuery: "Shinhotaka Ropeway Takayama"
+            },
+            {
+              type: "standard",
+              time: "12:50 - 15:30",
+              title: "上高地健行 (大正池 ➔ 田代橋 ➔ 河童橋)",
+              jpTitle: "上高地 大正池から河童橋トレッキング",
+              route: "轉乘接駁大巴在大正池站提前下車，步行健行約1.5~2小時至河童橋。",
+              img: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+26",
+              highlights: "神降地美譽！拍攝大正池枯木映照穗高連峰倒影，穿梭落葉松林木棧道，漫步田代濕原抵達河童橋。",
+              foods: "五千尺廚房香脆山賊燒定食、信州蘋果派",
+              buys: "上高地河童玩偶、限定信州白樺可手作木工",
+              tips: "健行路況平坦木棧道，穿著防滑好走運動鞋。",
+              mapQuery: "Taisho Pond Kamikochi"
+            },
+            {
+              type: "shared",
+              time: "16:00 - 19:30",
+              title: "包車返回名古屋民宿 ➔ 地下街居酒屋",
+              jpTitle: "貸切車で名古屋へ直帰 ➔ ESCA居酒屋",
+              route: "全體同車經高速公路直達名古屋民宿，車程約3小時。",
+              img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+27",
+              highlights: "【舒適歸返】在包車上好好補眠休息，專車直達民宿門口放背包，晚餐在名站地下街品嚐熱騰騰定食居酒屋。",
+              foods: "地下街味噌豬排飯、生啤酒",
+              buys: "高速公路休息站名產",
+              tips: "回到名站早點洗澡休息，讓雙腿徹底放鬆。",
+              mapQuery: "Nagoya Station"
+            }
+          ],
+          light: [
+            {
+              type: "shared",
+              time: "07:50 - 11:20",
+              title: "新穗高雙層纜車 ＆ 景觀足湯泡腳",
+              jpTitle: "新穂高ロープウェイ ＆ 白樺平足湯 (全員同行)",
+              route: "搭乘雙層大纜車直上2,156公尺山頂，電梯代步完全不耗腿力。",
+              img: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+25",
+              highlights: "【不費腿力】展望台為全平地木棧平台！白樺平站戶外免費泡足湯吃剛出爐可頌，搭纜車直達山頂飽覽雪山全景！",
+              foods: "熱壓三明治、手工可頌麵包、熱咖啡",
+              buys: "頂霜淇淋特製餅乾",
+              tips: "山頂風大記得穿好羽絨保暖外套。",
+              mapQuery: "Shinhotaka Ropeway Takayama"
+            },
+            {
+              type: "light",
+              time: "12:50 - 15:30",
+              title: "上高地巴士總站直達 ＆ 五千尺廚房景觀吧台",
+              jpTitle: "上高地BT直行 ＆ 五千尺キッチン絶景ランチ",
+              route: "【關鍵訣竅】絕對不要在大正池下車！接駁大巴直達終點「上高地總站」才下車！",
+              img: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00e699?text=Echo+L11",
+              highlights: "【走不到1,000步享頂級美景】下車步行3分鐘到河童橋拍大合照，隨後直上五千尺廚房2樓靠窗景觀吧台，隔窗邊吃山賊燒定食邊俯瞰梓川蒂芬妮藍溪水與雪山！",
+              foods: "五千尺特製巨塊山賊燒炸雞定食、熱咖啡",
+              buys: "五千尺奢華蘋果磅蛋糕",
+              tips: "全時間坐著享受世界級景緻，等待大隊健行抵達會合。",
+              mapQuery: "Gosenjaku Kitchen Kamikochi"
+            },
+            {
+              type: "shared",
+              time: "16:00 - 19:30",
+              title: "包車返回名古屋民宿 ➔ 早早泡澡入睡",
+              jpTitle: "貸切車で名古屋へ直帰 ➔ 早めに就寝休息",
+              route: "全員同車舒舒服服一路睡回名古屋民宿門口。",
+              img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+27",
+              highlights: "專車點對點送達，免提行李趕電車，晚上名站簡單用餐後早點躺平休息。",
+              foods: "名站清淡蕎麥麵 / 便利商店熱湯",
+              buys: "酸痛貼布 / 休足時間",
+              tips: "回到民宿讓雙腳充分休息。",
+              mapQuery: "Nagoya Station"
+            }
+          ]
+        }
+      },
+      8: {
+        date: "10/30 (五)",
+        timeSpan: "10:00 ~ 20:00",
+        shortTitle: "長島三井名花里",
+        title: "長島三井名花里",
+        tag: "直達巴士＋名花之里大會合",
+        sharedPlan: "名花之里大會師、長島啤酒園晚餐、日本第一平地燈海與光之隧道",
+        standardPlan: "上午清洲城信長起點與德川美術館、下午長島三井OUTLET快速掃貨",
+        lightPlan: "上午睡到自然醒享早午餐、直達高速巴士直奔長島Outlet泡足湯",
+        summary: "慢活組睡到自然醒直奔 Outlet，傍晚全員在名花之里會合享用長島啤酒園晚餐與日本第一平地燈海。",
+        budget: "¥11,500 / 人",
+        steps: { standard: "~ 17,000 步", light: "~ 8,500 步" },
+        cards: {
+          standard: [
+            {
+              type: "standard",
+              time: "08:30 - 13:00",
+              title: "清洲城天守閣 ＆ 德川美術館巡禮",
+              jpTitle: "清洲城 ＆ 徳川美術館・徳川園",
+              route: "搭JR東海道本線至清洲站參觀信長起點清洲城，再轉JR中央線至大曾根站訪德川美術館。",
+              img: "https://images.unsplash.com/photo-1578637387939-43c525550085?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+28",
+              highlights: "走過紅色大手橋拍信長與濃姬銅像；德川美術館欣賞國寶源氏物語繪卷與歷代名刀火繩槍。",
+              foods: "清洲中華定食、德川園茶寮抹茶",
+              buys: "織田信長出陣御守、德川家康金箔家紋周邊",
+              tips: "13:30 回名鐵巴士中心搭直達巴士前往長島OUTLET。",
+              mapQuery: "Kiyosu Castle"
+            },
+            {
+              type: "standard",
+              time: "14:20 - 17:00",
+              title: "長島三井 OUTLET 快速掃貨採買",
+              jpTitle: "三井アウトレットパーク ジャズドリーム長島",
+              route: "名鐵巴士直達長島OUTLET，按地圖直奔心儀品牌專櫃。",
+              img: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+29",
+              highlights: "日本店鋪數最多的巨型露天OUTLET！各大歐美日系服飾、戶外登山機能始祖鳥與運動品牌一網打盡。",
+              foods: "宮崎和牛漢堡、現烤可頌冰淇淋",
+              buys: "The North Face、Nike、日系BEAMS服飾",
+              tips: "17:00 搭三重交通接駁公車至名花之里與輕量組會合。",
+              mapQuery: "Mitsui Outlet Park Jazz Dream Nagashima"
+            },
+            {
+              type: "shared",
+              time: "17:30 - 19:30",
+              title: "名花之里 長島啤酒園晚餐 ＆ 日本第一光之隧道",
+              jpTitle: "なばなの里 長島ビール園 ＆ イルミネーション",
+              route: "全員名花之里會合，先在長島啤酒園吃晚餐避開人潮，隨後漫步璀璨燈海。",
+              img: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+30",
+              highlights: "【日本第一燈海】走入200公尺由數萬顆花瓣造型LED打造的奇蹟「光之隧道」！鏡池絕美紅葉水面倒影，全平地漫步無坡度！",
+              foods: "土手煮牛筋丼、在地四日市醬燒豬排 (トンテキ)、長島現釀手工黑啤酒",
+              buys: "名花之里花草茶、楓葉仙貝禮盒",
+              tips: "門票含¥1,000抵用券可在啤酒園折抵晚餐；19:30搭直達高速巴士回名古屋。",
+              mapQuery: "Nabana no Sato Kuwana"
+            }
+          ],
+          light: [
+            {
+              type: "light",
+              time: "10:30 - 11:50",
+              title: "睡到自然醒 ➔ 直達巴士前往長島 OUTLET",
+              jpTitle: "朝寝坊 ➔ 直行高速バスで長島アウトレットへ",
+              route: "名鐵百貨3樓巴士中心搭乘直達高速巴士（50分鐘一車直達免轉車）。",
+              img: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00e699?text=Echo+L12",
+              highlights: "【慢活極致】上午完全不排任何神社與城堡！在民宿睡飽後在名站悠閒吃早午餐，一車直達Outlet，省去所有轉車奔波。",
+              foods: "名站現做三明治早午餐、熱拿鐵",
+              buys: "長島巴士套票",
+              tips: "巴士座位寬敞舒適，車上可閉目養神。",
+              mapQuery: "Nagoya Meitetsu Bus Center"
+            },
+            {
+              type: "light",
+              time: "12:00 - 16:50",
+              title: "長島三井 Outlet 露天咖啡座 ＆ 免費足湯",
+              jpTitle: "長島アウトレット カフェ小憩 ＆ 温泉足湯",
+              route: "全區平坦單層動線，只逛目標2~3家店鋪。",
+              img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+L13",
+              highlights: "【平路無坡度】鎖定喜歡的品牌專櫃購買，逛累了至露天咖啡座喝茶看摩天輪，享受天然長島溫泉免費足湯放鬆雙腳！",
+              foods: "Ralph's Coffee 拿鐵、GODIVA 現做巧克力霜淇淋",
+              buys: "精緻日系服飾、保暖圍巾手套",
+              tips: "不盲目暴走，把體力留給傍晚名花之里的平地燈海步道。",
+              mapQuery: "Mitsui Outlet Park Jazz Dream Nagashima"
+            },
+            {
+              type: "shared",
+              time: "17:30 - 19:30",
+              title: "名花之里啤酒園晚餐 ＆ 平地燈海漫步・全員大合聚",
+              jpTitle: "なばなの里 長島ビール園 (平地夜景・全員合流)",
+              route: "搭乘接駁車至名花之里與大隊合體，長島啤酒園入座享用熱騰騰晚餐。",
+              img: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+30",
+              highlights: "【平地最美夜景】全區皆為無障礙平坦步道，完全無爬坡爬山！漫步夢幻光之隧道與鏡池倒影，美不勝收！",
+              foods: "土手煮牛筋味噌丼定食、熱麥茶",
+              buys: "名花之里限定伴手禮",
+              tips: "19:30搭直達高速巴士回名古屋民宿，打包回國大件行李！",
+              mapQuery: "Nabana no Sato Kuwana"
+            }
+          ]
+        }
+      },
+      9: {
+        date: "10/31 (六)",
+        timeSpan: "08:00 ~ 22:15",
+        shortTitle: "名城常滑歸國行",
+        title: "名城常滑歸國行",
+        tag: "專車包車送機 (全員同車同行)",
+        sharedPlan: "行李包車直達、名古屋城本丸御殿金箔障壁畫、山本屋味噌烏龍麵",
+        standardPlan: "常滑陶藝散步道A線坡道巡禮、中部機場300m觀景台看飛機起降",
+        lightPlan: "常滑平坦招財貓大道合影巨大常喵、波音787機翼下喝咖啡愜意候機",
+        summary: "參觀名古屋城本丸御殿金箔壁畫，常滑招財貓大道拍照，新特麗亞機場免稅店採買搭機返台。",
+        budget: "¥9,800 / 人",
+        steps: { standard: "~ 13,000 步", light: "~ 7,000 步" },
+        cards: {
+          standard: [
+            {
+              type: "shared",
+              time: "09:30 - 11:30",
+              title: "名古屋城 本丸御殿",
+              jpTitle: "名古屋城 本丸御殿 金箔障壁画見学",
+              route: "民宿退房寄行李，地鐵或計程車至名古屋城正門。",
+              img: "https://images.unsplash.com/photo-1578637387939-43c525550085?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+31",
+              highlights: "江戶幕府最華麗宮殿建築完美復原！近距離觀賞由金箔打造的《虎之圖》障壁畫，仰望屋頂金色金鯱。",
+              foods: "金箔抹茶霜淇淋",
+              buys: "金色金鯱鑰匙圈、名古屋城限定御城印",
+              tips: "天守閣整修關閉，焦點全部放在華麗的本丸御殿內部。",
+              mapQuery: "Nagoya Castle Hommaru Palace"
+            },
+            {
+              type: "shared",
+              time: "12:00 - 13:00",
+              title: "ESCA 山本屋本店 味噌煮烏龍麵",
+              jpTitle: "山本屋本店 エスカ地下街 味噌煮込みうどん",
+              route: "回名站地下街，全員一同品嚐熱滾滾的味噌烏龍麵。",
+              img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+32",
+              highlights: "【名古屋最後名物】濃郁甘醇的八丁味噌原汁，特製硬心烏龍麵，用無孔陶鍋蓋當碗盛裝品嚐！",
+              foods: "名古屋交趾雞味噌煮烏龍麵、白飯拌生蛋",
+              buys: "山本屋本店特製外帶生麵禮盒",
+              tips: "吃飽後行李全數上專屬包車，出發前往知多半島。",
+              mapQuery: "Yamamotoya Honten ESCA Nagoya"
+            },
+            {
+              type: "standard",
+              time: "13:40 - 15:30",
+              title: "常滑陶藝散步道 A 路線 ＆ 巨貓常喵",
+              jpTitle: "とこなめ招き猫通り ＆ やきもの散歩道",
+              route: "包車抵達常滑陶瓷會館，走完起伏坡道的陶管紅磚煙囪小徑。",
+              img: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/b347ff?text=Echo+33",
+              highlights: "招財貓的故鄉！拍沿牆39尊神態各異的祈福陶貓，天橋俯瞰巨大的巨貓常喵 (Tokonyan) 探出頭來。",
+              foods: "常滑手工抹茶冰淇淋、常滑燒焙茶",
+              buys: "正宗常滑燒朱泥茶壺、開運招財陶貓",
+              tips: "坡道有些微起伏，15:30準時包車前往機場。",
+              mapQuery: "Tokoname Pottery Footpath"
+            },
+            {
+              type: "shared",
+              time: "16:00 - 19:40",
+              title: "中部國際機場 提燈橫丁採買 ＆ 搭機返台",
+              jpTitle: "セントレア スカイタウン 買い納め ➔ 帰国",
+              route: "包車直達機場離境大廳，托運行李後在4樓藍天城大採購。",
+              img: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+34",
+              highlights: "【機場超好逛】4樓提燈橫丁買齊蝦仙貝之里大包裝蝦餅、赤福與小山雞翅！300m Sky Deck 看飛機在伊勢灣暮色中起降，19:40星宇航班平安返台！",
+              foods: "丸屋本店鰻魚便當、世界的山將雞翅、波音787機翼下星巴克",
+              buys: "えびせんべいの里 (綜合大包裝蝦餅)、青蛙饅頭、春華堂鰻魚派",
+              tips: "18:00 準時集合出境通關，機上享用晚餐。",
+              mapQuery: "Chubu Centrair International Airport Flight of Dreams"
+            }
+          ],
+          light: [
+            {
+              type: "shared",
+              time: "09:30 - 11:30",
+              title: "名古屋城 本丸御殿參觀",
+              jpTitle: "本丸御殿 平坦動線見学 (全員同行)",
+              route: "搭計程車直達名古屋城正門，只在平坦室內御殿參觀。",
+              img: "https://images.unsplash.com/photo-1578637387939-43c525550085?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ffb300?text=Echo+31",
+              highlights: "【全平路木地板】不走外圍廣大石垣庭園，直奔華麗的金箔壁畫大廳，欣賞江戶工藝極致。",
+              foods: "抹茶霜淇淋",
+              buys: "精緻金箔書籤",
+              tips: "御殿內需脫鞋，行走舒適平穩。",
+              mapQuery: "Nagoya Castle Hommaru Palace"
+            },
+            {
+              type: "shared",
+              time: "12:00 - 13:00",
+              title: "ESCA 山本屋本店 味噌煮烏龍麵",
+              jpTitle: "山本屋本店 味噌煮込みうどん (全員同行)",
+              route: "專車行李已妥當，在地下街享用熱呼呼午餐。",
+              img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00f2fe?text=Echo+32",
+              highlights: "滾燙砂鍋原汁味噌烏龍麵，香濃暖胃，為九日美食畫下完美句點！",
+              foods: "味噌烏龍麵配生蛋",
+              buys: "外帶高湯味噌調理包",
+              tips: "吃飽直接上包車開往常滑。",
+              mapQuery: "Yamamotoya Honten ESCA Nagoya"
+            },
+            {
+              type: "light",
+              time: "13:40 - 15:30",
+              title: "常滑招財貓平地大道 ＆ 巨貓常喵拍照",
+              jpTitle: "とこなめ招き猫通り 平坦散策 (不登坂)",
+              route: "【省力訣竅】下車只走平坦的招財貓大道，不爬山坡陶藝小徑！",
+              img: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/00e699?text=Echo+L14",
+              highlights: "【平路拍照】在人行步道上與巨大常喵 (Tokonyan) 天橋合影，隨後在陶瓷會館挑選精美朱泥茶器吹冷氣休息。",
+              foods: "常滑陶器泡茶、日式米菓",
+              buys: "迷你陶瓷招財貓、茶具",
+              tips: "完全避開起伏山坡步道，輕鬆無負擔。",
+              mapQuery: "Tokoname Manekineko Street"
+            },
+            {
+              type: "shared",
+              time: "16:00 - 19:40",
+              title: "中部機場大採購 ＆ 波音787機翼下星巴克小憩",
+              jpTitle: "セントレア買い納め ＆ FLIGHT OF DREAMS休息",
+              route: "托運行李後，在4樓提燈橫丁買齊名產，至波音787機翼下入座休息！",
+              img: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=600&auto=format&fit=crop&q=80",
+              sticker: "https://placehold.co/100x100/1e172a/ff2a85?text=Echo+34",
+              highlights: "【極致享受候機】買齊大包裝綜合蝦仙貝後，坐在完整的波音787真機機翼下喝咖啡，19:40搭星宇班機平安滿載而歸！",
+              foods: "蝦餅試吃、波音787星巴克熱拿鐵",
+              buys: "えびせんべいの里 (綜合大包裝蝦餅)、赤福、春華堂鰻魚派",
+              tips: "18:00通關，機上享用熱騰騰星宇晚餐。",
+              mapQuery: "Chubu Centrair International Airport Flight of Dreams"
+            }
+          ]
+        }
+      }
+    };
+
+    // 出發前檢查清單預設資料 (支援 LocalStorage 記憶)
+    const CHECKLIST_ITEMS = [
+      { id: 'c1', label: '護照有效期限 6 個月以上' },
+      { id: 'c2', label: 'Visit Japan Web (入境VJW填寫完成)' },
+      { id: 'c3', label: 'iPhone / 實體 Suica / Pasmo 交通卡儲值' },
+      { id: 'c4', label: '日圓現金 (建議每人備足 ¥30,000~40,000)' },
+      { id: 'c5', label: '高山/新穗高保暖防風厚外套 (山頂5°C~8°C)' },
+      { id: 'c6', label: '好穿脫、防滑好走球鞋＋厚襪子 (寺院脫鞋必備)' },
+      { id: 'c7', label: '日本上網 eSIM 或 SIM 卡確認開通' },
+      { id: 'c8', label: '行動電源 (需隨身帶上飛機，勿放托運行李)' },
+      { id: 'c9', label: '常用個人藥品 (感冒、止痛、胃腸藥、暈車藥)' },
+      { id: 'c10', label: '休足時間 / 痠痛貼布 (晚間腿部放鬆神器)' },
+      { id: 'c11', label: '折疊防風雨傘 / 隨身面紙' },
+      { id: 'c12', label: '吉卜力 Premium 預約證明 / 車票憑證' }
+    ];
+
+    // 全域狀態管理
+    let activePage = 'overview';
+    let dailyActiveDay = 1;
+    let dailyMode = 'standard'; // 'standard' 或 'light'
+    let currentTheme = 'dark';
+
+    // 頁面切換控制 (overview, prep, daily)
+    function goToPage(page) {
+      activePage = page;
+      const pages = ['overview', 'prep', 'daily'];
+      pages.forEach(p => {
+        const sec = document.getElementById(`section-${p}`);
+        if (sec) {
+          if (p === page) {
+            sec.classList.remove('hidden');
+          } else {
+            sec.classList.add('hidden');
+          }
+        }
+
+        // 更新導航按鈕樣式
+        const navBtn = document.getElementById(`nav-btn-${p}`);
+        if (navBtn) {
+          if (p === page) {
+            navBtn.className = 'flex-1 sm:flex-initial px-2.5 sm:px-4 py-1.5 rounded-xl text-[11px] sm:text-sm font-black flex items-center justify-center gap-1 transition-all bg-gradient-to-r from-red-600 via-orange-500 to-amber-500 text-white shadow-md cursor-pointer whitespace-nowrap';
+          } else {
+            navBtn.className = 'flex-1 sm:flex-initial px-2.5 sm:px-4 py-1.5 rounded-xl text-[11px] sm:text-sm font-bold flex items-center justify-center gap-1 transition-all dark:text-gray-300 text-stone-700 hover:text-red-600 dark:hover:text-white cursor-pointer whitespace-nowrap';
+          }
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 從總覽直達某一天的詳細行程
+    function jumpToDay(dayNum) {
+      dailyActiveDay = dayNum;
+      goToPage('daily');
+      renderDailySlider();
+      renderDailyContent();
+    }
+
+    // 切換詳細行程的模式 (全圖狂奔小隊 vs 原地掛機小隊)
+    function setDailyMode(mode) {
+      dailyMode = mode;
+      const btnStd = document.getElementById('mode-btn-standard');
+      const btnLight = document.getElementById('mode-btn-light');
+      const statusText = document.getElementById('current-mode-status-text');
+
+      if (mode === 'standard') {
+        btnStd.className = 'flex-1 sm:flex-initial py-2 px-3 sm:px-4 rounded-lg text-xs md:text-sm font-black flex items-center justify-center gap-1.5 transition-all bg-gradient-to-r from-red-600 to-orange-500 text-white shadow-md cursor-pointer whitespace-nowrap';
+        btnLight.className = 'flex-1 sm:flex-initial py-2 px-3 sm:px-4 rounded-lg text-xs md:text-sm font-black flex items-center justify-center gap-1.5 transition-all dark:text-gray-300 text-stone-700 hover:text-black dark:hover:text-white cursor-pointer whitespace-nowrap';
+        statusText.innerHTML = '🗺️ 全圖狂奔小隊模式 (景點全制霸)';
+      } else {
+        btnStd.className = 'flex-1 sm:flex-initial py-2 px-3 sm:px-4 rounded-lg text-xs md:text-sm font-black flex items-center justify-center gap-1.5 transition-all dark:text-gray-300 text-stone-700 hover:text-black dark:hover:text-white cursor-pointer whitespace-nowrap';
+        btnLight.className = 'flex-1 sm:flex-initial py-2 px-3 sm:px-4 rounded-lg text-xs md:text-sm font-black flex items-center justify-center gap-1.5 transition-all bg-gradient-to-r from-emerald-600 to-teal-500 text-white shadow-md cursor-pointer whitespace-nowrap';
+        statusText.innerHTML = '🧋 原地掛機小隊模式 (膝蓋友善 ≤10,000步)';
+      }
+
+      renderDailyContent();
+    }
+
+    // 渲染總覽 (桌面端表格 + 手機端專屬超高對比卡片)
+    function renderOverview() {
+      // 1. 桌面端表格
+      const tbody = document.getElementById('desktop-overview-tbody');
+      if (tbody) {
+        tbody.innerHTML = '';
+        for (let i = 1; i <= 9; i++) {
+          const item = FULL_TRIP_DATA[i];
+          const tr = document.createElement('tr');
+          tr.className = 'dark:hover:bg-black/40 hover:bg-amber-100/60 transition-colors align-top';
+
+          tr.innerHTML = `
+            <td class="py-3 px-3 font-anime font-black dark:text-white text-stone-900 whitespace-nowrap">
+              <span class="inline-block px-2.5 py-0.5 rounded-md bg-red-600 text-white font-black text-xs mr-1 shadow-sm">
+                DAY 0${i}
+              </span> 
+              <span class="dark:text-amber-300 text-stone-900 font-bold block sm:inline mt-0.5 sm:mt-0">${item.date}</span>
+            </td>
+            <td class="py-3 px-3 font-black dark:text-white text-stone-950 whitespace-nowrap text-xs sm:text-sm">
+              ${item.shortTitle}
+            </td>
+            <td class="py-3 px-3 text-xs leading-relaxed dark:text-gray-300 text-stone-700">
+              <div class="flex items-start gap-1.5">
+                <span class="flex-shrink-0 px-1.5 py-0.5 rounded bg-red-100 dark:bg-red-950/80 border border-red-300 dark:border-red-600/40 text-red-800 dark:text-red-300 text-[10px] font-bold">共同</span>
+                <span>${item.sharedPlan}</span>
+              </div>
+            </td>
+            <td class="py-3 px-3 text-xs leading-relaxed dark:text-gray-300 text-stone-700">
+              <div class="flex items-start gap-1.5">
+                <span class="flex-shrink-0 px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-950/80 border border-purple-300 dark:border-purple-600/40 text-purple-800 dark:text-purple-300 text-[10px] font-bold">狂奔</span>
+                <span>${item.standardPlan}</span>
+              </div>
+            </td>
+            <td class="py-3 px-3 text-xs leading-relaxed dark:text-gray-300 text-stone-700">
+              <div class="flex items-start gap-1.5">
+                <span class="flex-shrink-0 px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/80 border border-emerald-300 dark:border-emerald-600/40 text-emerald-800 dark:text-emerald-300 text-[10px] font-bold">掛機</span>
+                <span>${item.lightPlan}</span>
+              </div>
+            </td>
+            <td class="py-3 px-3 text-right font-mono dark:text-amber-300 text-red-700 font-black text-xs whitespace-nowrap">
+              ${item.budget}
+            </td>
+            <td class="py-3 px-3 text-center whitespace-nowrap">
+              <button onclick="jumpToDay(${i})" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-red-600 via-orange-500 to-amber-500 text-white text-xs font-black transition-all shadow-sm hover:scale-105 cursor-pointer">
+                詳情 <i class="fa-solid fa-angle-right text-[10px]"></i>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        }
+      }
+
+      // 2. 手機端卡片流
+      const mobileContainer = document.getElementById('mobile-overview-list');
+      if (mobileContainer) {
+        mobileContainer.innerHTML = '';
+        for (let i = 1; i <= 9; i++) {
+          const item = FULL_TRIP_DATA[i];
+          const card = document.createElement('div');
+          card.className = 'glass-card p-4 rounded-2xl border dark:border-stone-800 border-red-200/80 space-y-3 relative overflow-hidden';
+
+          card.innerHTML = `
+            <!-- 頂部資訊列：天數 + 精簡少字標題 + 預估花費 -->
+            <div class="flex items-center justify-between gap-2 border-b dark:border-stone-800 border-amber-200 pb-2.5">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="px-2 py-0.5 rounded-md bg-red-600 text-white font-anime font-black text-xs shadow-sm flex-shrink-0 whitespace-nowrap">
+                  DAY 0${i}
+                </span>
+                <span class="font-mono text-xs dark:text-amber-300 text-stone-900 font-bold whitespace-nowrap flex-shrink-0">${item.date}</span>
+                <h3 class="text-sm font-black dark:text-white text-stone-950 truncate whitespace-nowrap">
+                  ${item.shortTitle}
+                </h3>
+              </div>
+              <span class="text-xs font-mono font-black dark:text-amber-300 text-red-700 px-2 py-0.5 rounded dark:bg-black/50 bg-red-50 border dark:border-stone-800 border-red-200 flex-shrink-0 whitespace-nowrap">
+                ${item.budget}
+              </span>
+            </div>
+
+            <!-- 統一三個分組行程區塊：共同 / 狂奔 / 掛機 -->
+            <div class="space-y-2 text-xs">
+              <div class="p-2 rounded-xl dark:bg-black/40 bg-amber-50/70 border dark:border-stone-800 border-amber-200 flex items-start gap-2">
+                <span class="flex-shrink-0 px-1.5 py-0.5 rounded bg-red-100 dark:bg-red-950/80 border border-red-300 dark:border-red-600/40 text-red-800 dark:text-red-300 text-[10px] font-black whitespace-nowrap">共同</span>
+                <p class="dark:text-gray-200 text-stone-800 leading-snug font-medium flex-1">${item.sharedPlan}</p>
+              </div>
+
+              <div class="p-2 rounded-xl dark:bg-black/40 bg-purple-50/50 border dark:border-stone-800 border-purple-200 flex items-start gap-2">
+                <span class="flex-shrink-0 px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-950/80 border border-purple-300 dark:border-purple-600/40 text-purple-800 dark:text-purple-300 text-[10px] font-black whitespace-nowrap">狂奔</span>
+                <p class="dark:text-gray-200 text-stone-800 leading-snug font-medium flex-1">${item.standardPlan}</p>
+              </div>
+
+              <div class="p-2 rounded-xl dark:bg-black/40 bg-emerald-50/50 border dark:border-stone-800 border-emerald-200 flex items-start gap-2">
+                <span class="flex-shrink-0 px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/80 border border-emerald-300 dark:border-emerald-600/40 text-emerald-800 dark:text-emerald-300 text-[10px] font-black whitespace-nowrap">掛機</span>
+                <p class="dark:text-gray-200 text-stone-800 leading-snug font-medium flex-1">${item.lightPlan}</p>
+              </div>
+            </div>
+
+            <!-- 底部動作列：步數對照 + 詳情跳轉按鈕 -->
+            <div class="flex items-center justify-between pt-1 border-t dark:border-stone-800 border-amber-200 text-[11px]">
+              <div class="dark:text-gray-300 text-stone-700 font-mono font-semibold flex items-center gap-2">
+                <span><span class="text-purple-600 dark:text-purple-400 font-bold">狂奔:</span> ${item.steps.standard}</span>
+                <span class="opacity-40">|</span>
+                <span><span class="text-emerald-600 dark:text-emerald-400 font-bold">掛機:</span> ${item.steps.light}</span>
+              </div>
+              <button onclick="jumpToDay(${i})" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-red-600 via-orange-500 to-amber-500 text-white text-xs font-black shadow-md flex items-center gap-1 hover:scale-105 transition-all whitespace-nowrap">
+                詳情 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </button>
+            </div>
+          `;
+          mobileContainer.appendChild(card);
+        }
+      }
+    }
+
+    // 渲染詳細行程 Day 1 ~ Day 9 滑桿按鈕
+    function renderDailySlider() {
+      const slider = document.getElementById('days-slider-container');
+      if (!slider) return;
+      slider.innerHTML = '';
+
+      for (let i = 1; i <= 9; i++) {
+        const btn = document.createElement('button');
+        btn.id = `slider-btn-day-${i}`;
+        const isSelected = i === dailyActiveDay;
+
+        btn.className = `flex-shrink-0 px-3.5 py-1.5 rounded-xl font-mono text-xs font-black border transition-all cursor-pointer ${
+          isSelected 
+            ? 'bg-red-600 text-white border-red-600 shadow-md scale-105' 
+            : 'dark:bg-stone-900/80 bg-white text-stone-800 dark:text-gray-300 dark:border-stone-800 border-amber-300 hover:border-red-500 shadow-sm'
+        }`;
+
+        btn.innerHTML = `<span class="opacity-80 text-[9px] block">DAY</span>0${i}`;
+        btn.onclick = () => {
+          dailyActiveDay = i;
+          renderDailySlider();
+          renderDailyContent();
+          btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        };
+        slider.appendChild(btn);
+      }
+    }
+
+    // 渲染每日詳細內容卡片
+    function renderDailyContent() {
+      const item = FULL_TRIP_DATA[dailyActiveDay];
+      if (!item) return;
+
+      // 更新當日標題區
+      document.getElementById('daily-badge').innerText = `DAY 0${dailyActiveDay}`;
+      document.getElementById('daily-date').innerText = item.date;
+      document.getElementById('daily-tag').innerText = item.tag;
+      document.getElementById('daily-title').innerText = item.title;
+      document.getElementById('daily-summary').innerText = item.summary;
+      document.getElementById('daily-time-span').innerText = item.timeSpan;
+      document.getElementById('daily-budget').innerText = item.budget;
+      document.getElementById('daily-steps').innerText = 
+        dailyMode === 'standard' ? item.steps.standard : item.steps.light;
+
+      // 渲染時間軸卡片
+      const timelineContainer = document.getElementById('daily-timeline-cards');
+      timelineContainer.innerHTML = '';
+      const cards = item.cards[dailyMode] || [];
+
+      cards.forEach((card) => {
+        const cardEl = document.createElement('div');
+        cardEl.className = 'relative group';
+
+        // 類型徽章
+        let typeBadge = '';
+        let dotBorder = 'border-red-600';
+        if (card.type === 'shared') {
+          typeBadge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold bg-red-100 dark:bg-red-950/80 border border-red-300 dark:border-red-600/40 text-red-800 dark:text-red-300"><i class="fa-solid fa-people-roof"></i> 共同行程</span>';
+          dotBorder = 'border-red-600';
+        } else if (card.type === 'standard') {
+          typeBadge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold bg-purple-100 dark:bg-purple-950/80 border border-purple-300 dark:border-purple-600/40 text-purple-800 dark:text-purple-300">🗺️ 全圖狂奔專屬</span>';
+          dotBorder = 'border-purple-600';
+        } else {
+          typeBadge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold bg-amber-100 dark:bg-amber-950/80 border border-amber-300 dark:border-amber-600/40 text-amber-900 dark:text-amber-300">🧋 原地掛機專屬</span>';
+          dotBorder = 'border-amber-500';
+        }
+
+        cardEl.innerHTML = `
+          <!-- 時間軸圓點 -->
+          <div class="absolute -left-[27px] sm:-left-[35px] top-4 w-4 h-4 rounded-full dark:bg-stone-900 bg-white border-2 ${dotBorder} shadow-sm group-hover:scale-125 transition-all"></div>
+
+          <!-- 卡片主體 -->
+          <div class="glass-card rounded-2xl p-4 sm:p-5">
+            <div class="flex flex-col md:flex-row gap-4">
+              
+              <!-- 景點照片容器 -->
+              <div class="relative w-full md:w-56 h-40 md:h-auto flex-shrink-0 rounded-xl overflow-hidden border dark:border-stone-800 border-amber-200">
+                <img src="${card.img}" alt="${card.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                <span class="absolute top-2 left-2 px-2.5 py-0.5 rounded-md dark:bg-black/75 bg-stone-900/80 text-amber-400 font-mono text-xs font-black shadow-sm">
+                  ${card.time}
+                </span>
+              </div>
+
+              <!-- 文字與貼圖資訊 -->
+              <div class="flex-1 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-start justify-between gap-2">
+                    <div>
+                      <div class="flex items-center gap-2 mb-1">
+                        ${typeBadge}
+                      </div>
+                      <h3 class="text-base sm:text-lg font-black dark:text-white text-stone-950 leading-snug">
+                        ${card.title}
+                      </h3>
+                      <p class="text-xs dark:text-amber-300 text-stone-700 font-mono mt-0.5 font-bold">
+                        ${card.jpTitle}
+                      </p>
+                    </div>
+
+                    <!-- 鳴潮與動漫貼圖槽位 -->
+                    <div class="flex-shrink-0 w-11 h-11 -mt-1" title="共鳴打卡提醒">
+                      <img src="${card.sticker}" alt="貼圖" class="echo-sticker w-full h-full object-contain rounded-full border dark:border-amber-400/40 border-amber-300 shadow-sm" />
+                    </div>
+                  </div>
+
+                  <!-- 交通銜接指引 -->
+                  <div class="mt-2.5 p-2 rounded-xl dark:bg-black/40 bg-amber-50/80 border dark:border-stone-800 border-amber-200 text-xs dark:text-gray-300 text-stone-700 flex items-start gap-2">
+                    <i class="fa-solid fa-route text-amber-600 mt-0.5"></i>
+                    <span><strong>交通銜接：</strong>${card.route}</span>
+                  </div>
+
+                  <!-- 觀賞重點、推薦美食、推薦購買與注意事項 -->
+                  <div class="mt-2.5 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                    <div class="p-2 rounded-xl dark:bg-black/30 bg-white/70 border dark:border-stone-800 border-amber-200 space-y-1">
+                      <div class="font-bold dark:text-amber-300 text-red-700 flex items-center gap-1.5">
+                        <i class="fa-solid fa-binoculars"></i> 觀賞/體驗重點
+                      </div>
+                      <p class="dark:text-gray-300 text-stone-700">${card.highlights}</p>
+                    </div>
+
+                    <div class="p-2 rounded-xl dark:bg-black/30 bg-white/70 border dark:border-stone-800 border-amber-200 space-y-1">
+                      <div class="font-bold dark:text-amber-300 text-red-700 flex items-center gap-1.5">
+                        <i class="fa-solid fa-utensils"></i> 推薦美食
+                      </div>
+                      <p class="dark:text-gray-300 text-stone-700">${card.foods}</p>
+                    </div>
+
+                    <div class="p-2 rounded-xl dark:bg-black/30 bg-white/70 border dark:border-stone-800 border-amber-200 space-y-1">
+                      <div class="font-bold dark:text-amber-300 text-red-700 flex items-center gap-1.5">
+                        <i class="fa-solid fa-bag-shopping"></i> 推薦購買伴手禮
+                      </div>
+                      <p class="dark:text-gray-300 text-stone-700">${card.buys}</p>
+                    </div>
+
+                    <div class="p-2 rounded-xl dark:bg-black/30 bg-white/70 border dark:border-stone-800 border-amber-200 space-y-1">
+                      <div class="font-bold text-amber-600 flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-exclamation"></i> 注意事項叮嚀
+                      </div>
+                      <p class="dark:text-gray-300 text-stone-700">${card.tips}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 導航按鈕 -->
+                <div class="mt-3.5 flex items-center justify-end">
+                  <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(card.mapQuery)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black transition-all shadow-sm">
+                    <i class="fa-solid fa-location-arrow"></i> 開啟 Google Maps 導航
+                  </a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        `;
+        timelineContainer.appendChild(cardEl);
+      });
+    }
+
+    // 渲染行李檢查清單
+    function renderChecklist() {
+      const grid = document.getElementById('checklist-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const savedState = JSON.parse(localStorage.getItem('trip_checklist_state') || '{}');
+
+      CHECKLIST_ITEMS.forEach(item => {
+        const isChecked = !!savedState[item.id];
+        const label = document.createElement('label');
+        label.className = `flex items-center gap-2.5 p-3 rounded-xl border transition-all cursor-pointer select-none ${
+          isChecked 
+            ? 'dark:bg-red-950/40 bg-red-50 border-red-500/50 text-stone-900 dark:text-white font-bold' 
+            : 'dark:bg-black/40 bg-white/70 dark:border-stone-800 border-amber-200 text-stone-700 dark:text-gray-300'
+        }`;
+
+        label.innerHTML = `
+          <input type="checkbox" id="${item.id}" ${isChecked ? 'checked' : ''} class="w-4 h-4 rounded text-red-600 focus:ring-red-500 accent-red-600 cursor-pointer">
+          <span class="flex-1">${item.label}</span>
+          ${isChecked ? '<i class="fa-solid fa-check text-red-600"></i>' : ''}
+        `;
+
+        label.querySelector('input').addEventListener('change', (e) => {
+          savedState[item.id] = e.target.checked;
+          localStorage.setItem('trip_checklist_state', JSON.stringify(savedState));
+          renderChecklist();
+          showToast(e.target.checked ? '已勾選項目' : '已取消勾選');
+        });
+
+        grid.appendChild(label);
+      });
+    }
+
+    // 重設檢查清單
+    function resetChecklist() {
+      localStorage.removeItem('trip_checklist_state');
+      renderChecklist();
+      showToast('已重設檢查清單');
+    }
+
+    // 深淺色切換
+    function toggleTheme() {
+      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme);
+      localStorage.setItem('trip_maple_theme', nextTheme);
+    }
+
+    function applyTheme(theme) {
+      currentTheme = theme;
+      const htmlEl = document.documentElement;
+      const icon = document.getElementById('theme-icon');
+      const text = document.getElementById('theme-text');
+
+      if (theme === 'dark') {
+        htmlEl.classList.add('dark');
+        if (icon) icon.className = 'fa-solid fa-sun text-amber-400';
+        if (text) text.innerText = '淺色';
+      } else {
+        htmlEl.classList.remove('dark');
+        if (icon) icon.className = 'fa-solid fa-moon text-stone-700';
+        if (text) text.innerText = '深色';
+      }
+
+      renderOverview();
+      renderDailySlider();
+      renderDailyContent();
+    }
+
+    // 浮動提示 Toast
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toast-text');
+      if (!toast || !toastText) return;
+      toastText.innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2000);
+    }
+
+    // 頁面載入初始化
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('trip_maple_theme') || 'dark';
+      applyTheme(savedTheme);
+
+      goToPage('overview');
+      renderOverview();
+      renderChecklist();
+      renderDailySlider();
+      renderDailyContent();
+    });
+  </script>
+</body>
+</html>

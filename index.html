@@ -13,11 +13,46 @@
     tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Nunito','"Zen Maru Gothic"','sans-serif'],anime:['Nunito','"Zen Maru Gothic"','sans-serif'],mono:['Nunito','"Zen Maru Gothic"','monospace']}}}}
   </script>
   <style>
-    .maple-bg-layer { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -10; pointer-events: none; background-image: url('./images/bg-dark.jpg'), url('./images/bg-light.jpg'); background-size: cover; background-position: center center; background-repeat: no-repeat; transform: scale(1.02); transition: filter 0.4s ease; }
-    .dark .maple-bg-layer { filter: brightness(0.65) saturate(1.3) contrast(1.12); }
-    html:not(.dark) .maple-bg-layer { filter: brightness(1.02) saturate(1.15) contrast(1.02); }
-    .dark .maple-bg-overlay { position: fixed; inset: 0; z-index: -5; pointer-events: none; background: linear-gradient(135deg, rgba(14, 10, 20, 0.78) 0%, rgba(32, 10, 16, 0.62) 50%, rgba(10, 8, 15, 0.82) 100%); backdrop-filter: blur(2px); }
-    html:not(.dark) .maple-bg-overlay { background: linear-gradient(135deg, rgba(255, 252, 247, 0.72) 0%, rgba(255, 244, 230, 0.58) 50%, rgba(254, 246, 238, 0.75) 100%); backdrop-filter: blur(1.5px); }
+    /* 預設（淺色模式）背景圖 */
+    .maple-bg-layer {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -10;
+      pointer-events: none;
+      background-image: url('./images/bg-light.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      transform: scale(1.02);
+      transition: background-image 0.4s ease, filter 0.4s ease;
+    }
+    /* 深色模式背景圖 */
+    .dark .maple-bg-layer {
+      background-image: url('./images/bg-dark.jpg');
+      filter: brightness(0.7) contrast(1.1);
+    }
+    html:not(.dark) .maple-bg-layer {
+      filter: brightness(1.0) contrast(1.0);
+    }
+    /* 降低半透明遮罩濃度，避免遮擋背景 */
+    .maple-bg-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -5;
+      pointer-events: none;
+      transition: background 0.4s ease;
+    }
+    .dark .maple-bg-overlay {
+      background: linear-gradient(135deg, rgba(14, 10, 20, 0.45) 0%, rgba(10, 8, 15, 0.55) 100%);
+    }
+    html:not(.dark) .maple-bg-overlay {
+      background: linear-gradient(135deg, rgba(255, 252, 247, 0.35) 0%, rgba(254, 246, 238, 0.45) 100%);
+    }
+
     .glass-card { backdrop-filter: blur(16px); transition: all 0.25s ease; border-radius: 1.5rem; }
     .dark .glass-card { background: rgba(20, 16, 28, 0.90); border: 1px solid rgba(255, 179, 0, 0.28); box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.65); }
     .dark .glass-card:hover { border-color: rgba(255, 179, 0, 0.6); }
@@ -37,6 +72,7 @@
   <div class="maple-bg-layer" aria-hidden="true"></div>
   <div class="maple-bg-overlay" aria-hidden="true"></div>
 
+  <!-- 頂部主導航列 -->
   <header class="border-b dark:border-amber-500/20 border-red-200 dark:bg-black/60 bg-white/90 backdrop-blur-md px-3 sm:px-6 py-3.5 sticky top-0 z-50 transition-colors shadow-md">
     <div class="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3.5">
       <div class="text-center md:text-left w-full md:w-auto">
@@ -58,6 +94,7 @@
 
   <main class="w-full max-w-6xl mx-auto px-3 sm:px-6 py-6 flex-1">
 
+    <!-- ==================== 行程總覽 ==================== -->
     <section id="section-overview" class="space-y-6">
       <div class="glass-card p-5 md:p-6 border-l-4 border-amber-500">
         <div class="grid grid-cols-1 md:grid-cols-[220px_1fr_1fr] gap-6">
@@ -228,7 +265,7 @@
   <div id="toast" class="fixed bottom-6 right-6 px-4 py-2.5 rounded-xl bg-stone-900 border border-amber-400 text-amber-400 text-xs font-bold shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-2"><i class="fa-solid fa-circle-check"></i> <span id="toast-text">已複製成功</span></div>
 
   <script>
-    // 終極防截斷壓縮 9 天資料庫：Day 4 明治村與吉卜力皆已拆解為5區
+    // 終極修復版資料庫：所有變數名一致且 Day 4 徹底獨立分拆為 5 區
     const DATA={
       1:{date:"10/23(五)",t:"07:30~20:30",ti:"大須名物相見歡",sp:"機場直達民宿、ESCA棊子麵、大須觀音與商圈、伍味酉晚餐",stp:"大須商圈自由巡禮",lp:"大須商圈自由巡禮",sum:"搭乘包車直達民宿放行李，大須商圈探索與品嚐道地居酒屋手羽先。",b:"¥8,500",ss:"~13,000步",ls:"~13,000步",gn:"達妮婭",gw:"13°C~21°C | 降雨20%",go:"市區微涼。建議洋蔥式穿法，內搭透氣長袖外加輕薄外套。",gt:"下飛機直接搭包車前往民宿放行李，下午大須商圈大家可以依興趣自由解散，記得 18:30 在招財貓集合吃大餐！",img:"https://placehold.co/150/1e172a/00f2fe?text=Danya",
         c:[
@@ -289,7 +326,7 @@
           {tm:"shared",ti:"07:30-10:00",tt:"包車出發 ➔ 郡上八幡城",jt:"郡上八幡城 駐車場",r:"民宿門口專車直達山頂停車場。",i:"https://images.unsplash.com/photo-1528164344705-475426879c0d?w=800&q=80",hl:"奧美濃小京都！山頂俯瞰群山紅葉環抱的木造山城。【費腳力提醒】狂奔組徒步登天守閣內部！掛機組留在停車場遠眺拍照即可。",fd:"郡上天然水",by:"食物模型",tp:"車上嚴禁油煙氣味食物。",mq:"Gujo Hachiman Castle"},
           {tm:"shared",ti:"11:00-13:30",tt:"白川鄉合掌村 ＆ 觀景台",jt:"白川郷 合掌造り集落",r:"包車直上荻町城跡展望台看全景，隨後進村。",i:"https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80",hl:"全員同賞童話薑餅屋全景！【費腳力提醒】狂奔組健行至忠兵衛三小屋；掛機組進村只走平路，於「お食事処いろり」或「落人」入座休息。",fd:"朴葉味噌烤肉定食、烤硬豆腐、飛驒牛乳水布丁",by:"木造明信片",tp:"切勿踏入私人農田。",mq:"Shirakawa-go"},
           {tm:"shared",ti:"14:30-17:30",tt:"高山陣屋 ＆ 老街散策",jt:"高山陣屋 ➔ 古い町並み",r:"包車至陣屋下車，漫步老街。",i:"https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80",hl:"逛江戶陣屋與老街。【費腳力提醒】陣屋需脫鞋走長廊，狂奔組入內參觀；掛機組跳過陣屋，至百年喫茶店「藍花咖啡店」喝熱茶休息！",fd:"飛驒牛握壽司、熱抹茶、和菓子",by:"猿寶寶玩偶",tp:"保留體力吃和牛！",mq:"Takayama Jinya"},
-          {tm:"shared",ti:"18:00-20:30",tt:"味の与平 飛驒牛大餐",jt:"味の与平 飛騨牛",r:"18:10 老街集合。",i:"https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80",hl:"18:10全員合聚享用頂級A5飛驒牛盛宴！大餐後散步回高山民宿泡澡。",fd:"頂級A5飛驒牛排餐、飛驒牛壽喜燒定食",by:"高山味噌",tp:"大口吃牛肉補充能量！",mq:"Aji no Yohei Takayama"}
+          {tm:"shared",ti:"18:00-20:30",tt:"味の与平 飛驒牛大餐",jt:"味の与平 飛騨牛",r:"18:10 老街集合。",i:"https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80",hl:"18:10全員合聚享用頂級A5飛驒牛盛宴！大餐後散步回高山民宿泡澡。",fd:"頂級A5飛驒牛排餐、飛驒牛壽喜燒定食",by:"高山味噌",tp:"大口吃牛肉補充能量！",mq:"Aji no Yohei Takayama"}
         ]},
       7:{date:"10/29(四)",t:"07:50~19:30",ti:"新穗高與上高地",sp:"直達新穗高雙層纜車登頂、包車回名古屋",stp:"上高地大正池至河童橋絕景健行(1.5小時)",lp:"接駁車直達河童橋、五千尺廚房景觀吧台坐看溪景",sum:"搭日本唯一雙層大纜車賞雪山連峰；下午上高地絕景，傍晚包車直達回名站。",b:"¥14,500",ss:"~18,000步",ls:"~6,500步",gn:"菲比",gw:"1°C~10°C(山頂2°C~5°C) | 降雨35%",go:"全行程最嚴寒的一天！新穗高展望台戶外風超大甚至會結霜，毛帽、圍巾、厚羽絨衣全部穿上身！",gt:"上高地是絕美神降地！兩隊都會搭纜車看雪山，下午掛機小隊會直接搭車到河童橋喝咖啡免走路，狂奔小隊沿大正池走絕美木棧道！",img:"https://placehold.co/150/1e172a/00f2fe?text=Phoebe",
         c:[
@@ -310,7 +347,7 @@
         c:[
           {tm:"shared",ti:"09:30-11:30",tt:"名古屋城 本丸御殿",jt:"本丸御殿 平坦見学",r:"退房寄行李，計程車至名古屋城正門。",i:"https://images.unsplash.com/photo-1578637387939-43c525550085?w=800&q=80",hl:"江戶幕府最華麗宮殿建築！【全平路木地板】不走外圍石垣庭園，直奔華麗的金箔壁畫大廳欣賞極致工藝。",fd:"金箔抹茶霜淇淋",by:"金箔書籤、金鯱鑰匙圈",tp:"御殿內需脫鞋行走舒適，天守閣整修關閉。",mq:"Nagoya Castle Hommaru Palace"},
           {tm:"shared",ti:"12:00-13:00",tt:"山本屋本店 味噌煮烏龍麵",jt:"山本屋本店 味噌煮込みうどん",r:"行李上專車，地下街享用午餐。",i:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800&q=80",hl:"【名古屋最後名物】濃郁甘醇的八丁味噌原汁，用無孔陶鍋蓋當碗盛裝品嚐！",fd:"交趾雞味噌煮烏龍麵、生雞蛋拌飯",by:"生麵禮盒、高湯調理包",tp:"吃飽後行李上專屬包車出發。",mq:"Yamamotoya Honten ESCA"},
-          {tm:"standard",ti:"13:40-15:30",tt:"常滑陶藝散步道 ＆ 巨貓常喵",jt:"とこなめやきもの散歩道",r:"包車抵達陶瓷會館，走完起伏坡道。",i:"https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800&q=80",hl:"招財貓的故鄉！拍祈福陶貓，天橋俯瞰巨大的巨貓常喵探出頭來。",fd:"常滑燒焙茶",by:"朱泥茶壺、招財貓",tp:"坡道有起伏，15:30準時上車。",mq:"Tokoname Pottery Footpath"},
+          {tm:"standard",ti:"13:40-15:30",tt:"常滑陶藝散步道 ＆ 巨貓常喵",jt:"とこなめやきもの散步道",r:"包車抵達陶瓷會館，走完起伏坡道。",i:"https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800&q=80",hl:"招財貓的故鄉！拍祈福陶貓，天橋俯瞰巨大的巨貓常喵探出頭來。",fd:"常滑燒焙茶",by:"朱泥茶壺、招財貓",tp:"坡道有起伏，15:30準時上車。",mq:"Tokoname Pottery Footpath"},
           {tm:"light",ti:"13:40-15:30",tt:"招財貓大道 ＆ 巨貓常喵拍照",jt:"とこなめ招き猫通り 平坦散策",r:"【省力】下車只走平坦大道，不爬山坡！",i:"https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800&q=80",hl:"【平路拍照】在人行步道上與巨大常喵合影，陶瓷會館挑茶器吹冷氣休息。",fd:"常滑燒現泡焙茶、傳統米菓煎餅",by:"迷你招財貓",tp:"避開起伏山坡步道。",mq:"Tokoname Manekineko Street"},
           {tm:"shared",ti:"16:00-19:40",tt:"機場採購 ＆ 787機翼下小憩",jt:"セントレア買い納め ＆ 休息",r:"包車直達機場離境大廳，4樓大採購。",i:"https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800&q=80",hl:"4樓提燈橫丁買齊蝦仙貝與雞翅！【極致候機】買齊大包裝綜合蝦餅後，坐在波音787機翼下喝咖啡，滿載而歸！",fd:"えびせんべいの里綜合大包裝蝦餅試吃、波音787星巴克熱拿鐵、世界山將外帶炸雞翅",by:"綜合蝦餅、赤福",tp:"18:00 集合通關。",mq:"Chubu Centrair International Airport"}
         ]}
@@ -388,40 +425,12 @@
           tr.className = 'dark:hover:bg-black/40 hover:bg-amber-100/60 transition-colors align-top';
           tr.innerHTML = `
             <td class="py-3 px-3 font-anime font-black dark:text-white text-stone-900 whitespace-nowrap"><span class="inline-block px-2.5 py-0.5 rounded-md bg-red-600 text-white font-black text-xs mr-1 shadow-sm">DAY 0${i}</span><span class="dark:text-amber-300 text-stone-900 font-bold block sm:inline mt-0.5 sm:mt-0">${item.date}</span></td>
-            <td class="py-3 px-3 font-black dark:text-white text-stone-950 whitespace-nowrap text-xs sm:text-sm">${item.ti}</td>
             <td class="py-3 px-3 text-xs leading-relaxed dark:text-gray-300 text-stone-700"><div class="flex items-start gap-1.5"><span class="flex-shrink-0 px-1.5 py-0.5 rounded bg-red-100 border border-red-300 text-red-800 text-[10px] font-bold">共同</span><span>${item.sp}</span></div></td>
             <td class="py-3 px-3 text-xs leading-relaxed dark:text-gray-300 text-stone-700"><div class="flex items-start gap-1.5"><span class="flex-shrink-0 px-1.5 py-0.5 rounded bg-purple-100 border border-purple-300 text-purple-800 text-[10px] font-bold">狂奔</span><span>${item.stp}</span></div></td>
             <td class="py-3 px-3 text-xs leading-relaxed dark:text-gray-300 text-stone-700"><div class="flex items-start gap-1.5"><span class="flex-shrink-0 px-1.5 py-0.5 rounded bg-emerald-100 border border-emerald-300 text-emerald-800 text-[10px] font-bold">掛機</span><span>${item.lp}</span></div></td>
-            <td class="py-3 px-3 text-right font-mono dark:text-amber-300 text-red-700 font-black text-xs whitespace-nowrap">${item.b}</td>
             <td class="py-3 px-3 text-center whitespace-nowrap"><button onclick="jumpToDay(${i})" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-red-600 via-orange-500 to-amber-500 text-white text-xs font-black transition-all shadow-sm btn-jelly">詳情 <i class="fa-solid fa-angle-right text-[10px]"></i></button></td>
           `;
           tbody.appendChild(tr);
-        }
-      }
-
-      const mobileContainer = document.getElementById('mobile-overview-list');
-      if (mobileContainer) {
-        mobileContainer.innerHTML = '';
-        for (let i = 1; i <= 9; i++) {
-          const item = DATA[i];
-          const card = document.createElement('div');
-          card.className = 'glass-card p-4 rounded-2xl border dark:border-stone-800 border-red-200/80 space-y-3 relative overflow-hidden';
-          card.innerHTML = `
-            <div class="flex items-center justify-between gap-2 border-b dark:border-stone-800 border-amber-200 pb-2.5">
-              <div class="flex items-center gap-2 min-w-0"><span class="px-2 py-0.5 rounded-md bg-red-600 text-white font-anime font-black text-xs shadow-sm flex-shrink-0 whitespace-nowrap">DAY 0${i}</span><span class="font-mono text-xs dark:text-amber-300 text-stone-900 font-bold whitespace-nowrap flex-shrink-0">${item.date}</span><h3 class="text-sm font-black dark:text-white text-stone-950 truncate whitespace-nowrap">${item.ti}</h3></div>
-              <span class="text-xs font-mono font-black dark:text-amber-300 text-red-700 px-2 py-0.5 rounded dark:bg-black/50 bg-red-50 border dark:border-stone-800 border-red-200 flex-shrink-0 whitespace-nowrap">${item.b}</span>
-            </div>
-            <div class="space-y-2 text-xs">
-              <div class="p-2 rounded-xl dark:bg-black/40 bg-amber-50/70 border dark:border-stone-800 border-amber-200 flex items-start gap-2"><span class="flex-shrink-0 px-1.5 py-0.5 rounded bg-red-100 text-red-800 text-[10px] font-black">共同</span><p class="dark:text-gray-200 text-stone-800 font-medium flex-1">${item.sp}</p></div>
-              <div class="p-2 rounded-xl dark:bg-black/40 bg-purple-50/50 border dark:border-stone-800 border-purple-200 flex items-start gap-2"><span class="flex-shrink-0 px-1.5 py-0.5 rounded bg-purple-100 text-purple-800 text-[10px] font-black">狂奔</span><p class="dark:text-gray-200 text-stone-800 font-medium flex-1">${item.stp}</p></div>
-              <div class="p-2 rounded-xl dark:bg-black/40 bg-emerald-50/50 border dark:border-stone-800 border-emerald-200 flex items-start gap-2"><span class="flex-shrink-0 px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-black">掛機</span><p class="dark:text-gray-200 text-stone-800 font-medium flex-1">${item.lp}</p></div>
-            </div>
-            <div class="flex items-center justify-between pt-1 border-t dark:border-stone-800 border-amber-200 text-[11px]">
-              <div class="dark:text-gray-300 text-stone-700 font-mono font-semibold flex items-center gap-2"><span><span class="text-purple-600 font-bold">狂奔:</span> ${item.ss}</span><span class="opacity-40">|</span><span><span class="text-emerald-600 font-bold">掛機:</span> ${item.ls}</span></div>
-              <button onclick="jumpToDay(${i})" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-red-600 via-orange-500 to-amber-500 text-white text-xs font-black shadow-md flex items-center gap-1 btn-jelly whitespace-nowrap">詳情 <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
-            </div>
-          `;
-          mobileContainer.appendChild(card);
         }
       }
     }

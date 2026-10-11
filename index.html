@@ -13,7 +13,7 @@
     tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Nunito','"Zen Maru Gothic"','sans-serif'],anime:['Nunito','"Zen Maru Gothic"','sans-serif'],mono:['Nunito','"Zen Maru Gothic"','monospace']}}}}
   </script>
   <style>
-    .maple-bg-layer { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -10; pointer-events: none; background-image: url('https://i.pinimg.com/474x/45/d6/2b/45d62b443d35270484d0561a8607ec07.jpg'), url('https://images.unsplash.com/photo-1508873696983-2df5293cb32f?auto=format&fit=crop&w=2000&q=80'); background-size: cover; background-position: center center; background-repeat: no-repeat; transform: scale(1.02); transition: filter 0.4s ease; }
+    .maple-bg-layer { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -10; pointer-events: none; background-image: url('./images/bg-dark.jpg'), url('./images/bg-light.jpg'); background-size: cover; background-position: center center; background-repeat: no-repeat; transform: scale(1.02); transition: filter 0.4s ease; }
     .dark .maple-bg-layer { filter: brightness(0.65) saturate(1.3) contrast(1.12); }
     html:not(.dark) .maple-bg-layer { filter: brightness(1.02) saturate(1.15) contrast(1.02); }
     .dark .maple-bg-overlay { position: fixed; inset: 0; z-index: -5; pointer-events: none; background: linear-gradient(135deg, rgba(14, 10, 20, 0.78) 0%, rgba(32, 10, 16, 0.62) 50%, rgba(10, 8, 15, 0.82) 100%); backdrop-filter: blur(2px); }
